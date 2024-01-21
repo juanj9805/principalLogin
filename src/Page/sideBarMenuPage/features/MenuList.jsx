@@ -12,7 +12,7 @@ const MenuList = ({ darkTheme }) => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const handleOk = () => {
-    setIsModalOpen(false);
+    // setIsModalOpen(false);
     navigate('/');
     dispatch( changeAuthorized() )
   };
@@ -61,10 +61,10 @@ const MenuList = ({ darkTheme }) => {
         </Link>
       </Menu.Item> 
 
-      <Menu.Item key="/" 
+      <Menu.Item key="/logOut" 
       icon={<LogoutOutlined />}
       >
-        <Link onClick={handleOk} to={"/"}>
+        <Link onClick={handleOk} to={"/"} >
           Cerrar sesion
         </Link>
       </Menu.Item> 

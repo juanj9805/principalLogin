@@ -16,11 +16,11 @@ import { useSelector, useDispatch  } from "react-redux";
 import {changeAuthorized} from "./store/slices/authorized/authorizedSlice"
 // const { authorizedStateRedux } = useSelector( state => state.authorized )
 import { Button, Layout } from 'antd';
-import Clientes from './Page/clientes';
 import { UserPage } from './Page/userPage';
 import { ClientPage } from './Page/clientPage';
 import { TravelPage } from './Page/travelPage';
 import { ReportPage } from './Page/reportPage';
+import "bootstrap/dist/css/bootstrap.min.css"
 
 function App() {
       const {authorizedStateRedux} = useSelector  (state=>state.authorized)
