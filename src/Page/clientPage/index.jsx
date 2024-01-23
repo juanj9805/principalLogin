@@ -2,10 +2,29 @@ import styled from "styled-components";
 import reactImage from '../../assets/header.svg';
 import { useEffect, useState } from "react";
 import axios from "axios";
-import { Input, Table } from "antd";
-import {EditOutlined, DeleteOutlined} from "@ant-design/icons";
+import { Button, Input, Table } from "antd";
+import {EditOutlined, DeleteOutlined } from "@ant-design/icons";
 import { Modal } from 'antd';
+import { AudioOutlined } from '@ant-design/icons';
+import React, { createRef} from 'react';
+// import {  Space } from 'antd';
+import { Form } from "react-router-dom";
 
+
+const { Search } = Input;
+
+//Boton buscar
+ const suffix = (
+  <AudioOutlined
+    style={{
+      fontSize: 16,
+      color: '#1677ff',
+    }}
+  />
+);
+
+const onSearch = (value, _e, info) => console.log(info?.source, value);
+ 
 
 export const ContainerPrincipal = styled.div`
   width: 100%;
@@ -48,14 +67,14 @@ export const ContainerPrincipal = styled.div`
 
 `
 export const ClientPage = () => {
-  const [clientes, setclientes] = useState([])
+  const [clientes, setClientes] = useState([])
 
   const mostrarclientes = async () => {
   try {
     const response = await axios.get("https://localhost:7211/api/Cliente/ObtenerClientes");
     console.log(JSON.stringify(response.data, null, 2));
-    setclientes(response.data);
-    console.log(clientes);
+    setClientes(response.data);
+    // console.log(clientes);
   } catch (error) {
     console.error('Error:', error);
   }
@@ -119,7 +138,7 @@ const onDeleteClientes = (record) => {
         if (record.idCliente) { // Asegúrate de usar el nombre correcto de la propiedad
           await eliminarCliente(record.idCliente);
           // Actualiza el estado para reflejar la eliminación
-          setclientes((pre) => pre.filter((_clientes) => _clientes.idCliente !== record.idCliente));
+          setClientes((pre) => pre.filter((_clientes) => _clientes.idCliente !== record.idCliente));
         } else {
           console.error("No se puede obtener el ID del cliente a eliminar");
         }
@@ -202,6 +221,81 @@ const actualizarCliente = async (formValues) => {
   }
 };
 
+//Crear 
+const formRef = createRef();
+
+const {Item} = Form;
+
+const [isSaving, setIsSaving] = useState(false)
+
+const [formData, setFormData] = useState({
+  idTipoDocumento: '',
+  nombreCompleto: '',
+  direccionDomicilio: '',
+  numeroTelefono: '',
+  correoElectronico: '',
+});
+
+const resetSaving = () => {
+  setIsSaving(false);
+  setFormData({
+    idTipoDocumento: '',
+  nombreCompleto: '',
+  direccionDomicilio: '',
+  numeroTelefono: '',
+  correoElectronico: '',
+  });
+}
+
+
+
+const handleChange = (e) => {
+
+  const { name, value } = e.target;
+
+  setFormData((prevData) => ({
+      ...prevData,
+      [name]: value,
+  }));
+
+};
+
+const guardarCliente = async (formValues = formData) => {
+  try {
+      const response = await fetch("https://localhost:7211/api/Cliente/GuardarCliente", {
+          method: "POST",
+          headers: {
+              'Content-Type': 'application/json;charset=utf-8'
+          },
+          body: JSON.stringify({
+
+            idTipoDocumento: formValues.idTipoDocumento,
+            nombreCompleto: formValues.nombreCompleto,
+            direccionDomicilio: formValues.direccionDomicilio,
+            numeroTelefono: formValues.numeroTelefono,
+            correoElectronico: formValues.correoElectronico,
+
+          })
+      });
+
+      if (response.ok) {
+
+          formRef.current.resetFields(); // Reinicia los campos del formulario
+          alert("el cliente se ha guardado correctamente");
+          setClientes((pre)=>{
+            return [ ...pre, formData  ]
+          })
+
+          setIsSaving(false)
+
+      } else {
+          alert(response.statusText);
+      }
+  } catch (error) {
+      console.error("Error al guardar el cliente:", error);
+  }
+}
+
     return (
       <>  
       <ContainerPrincipal>
@@ -220,6 +314,29 @@ const actualizarCliente = async (formValues) => {
             <h4>Nos encanta verte nuevamente.</h4>
         </div>
         <div className="cuerpo__container">
+
+          <div style={{width:"100%",
+                        height:"15vh",
+                        border:"orange solid 3px",
+                        display:"flex",
+                        flexDirection:"column"  }}          >
+
+
+          <div>
+            <Button  onClick={ () => { setIsSaving (true)} } type="primary" >Agregar</Button>
+          </div>
+          <div>
+
+          <Search
+            placeholder="input search text"
+            allowClear
+            enterButton="Search"
+            size="large"
+            onSearch={onSearch}
+          /> 
+          </div>
+
+          </div>
 
 
           <Table
@@ -245,7 +362,7 @@ const actualizarCliente = async (formValues) => {
                   numeroTelefono: valueInputEditingCliente?.numeroTelefono,
                   correoElectronico: valueInputEditingCliente?.correoElectronico
                 });
-                setclientes(pre => {
+                setClientes(pre => {
                   return pre.map(_jardin=>{
                     if (_jardin.idCliente === valueInputEditingCliente.idCliente){
                       return valueInputEditingCliente
@@ -295,6 +412,84 @@ Id: formValues.idCliente,
               />
             
           </Modal>
+
+          <Modal
+  title="Guardar Cliente"
+  visible={isSaving}
+  onCancel={() => {
+    resetSaving()
+  }}
+  onOk={() => {
+    guardarCliente(formData)
+  }}
+
+
+  okText="Guardar"
+>
+     <Form
+          ref={formRef}
+          name="Formulario"
+      >
+
+          <Item 
+              label="idTipoDocumento" 
+              rules={[{
+                  required:true,
+                  message: "Por favor ingresa el tipo documento "
+              }]}
+              name = "idTipoDocumento"
+              >
+              <Input placeholder="input idTipoDocumento"  name="idTipoDocumento" value={formData.idTipoDocumento} onChange={handleChange}/>
+          </Item>
+
+          <Item 
+              label="nombreCompleto"
+              rules={[{
+                  required:true,
+                  message: "Por favor ingresa la nombreCompleto "
+            }]}
+
+              name="nombreCompleto"
+              >
+              <Input placeholder="input nombreCompleto" name="nombreCompleto" value={formData.nombreCompleto} onChange={handleChange}  />
+          </Item>
+
+          <Item 
+              label="direccionDomicilio"
+              rules={[{
+                  required:true,
+                  message: "Por favor ingresa el direccionDomicilio "
+              }]}
+              name="direccionDomicilio"
+              >
+              <Input placeholder="input direccionDomicilio" name="direccionDomicilio" value={formData.direccionDomicilio} onChange={handleChange} />
+          </Item>
+
+          <Item 
+              label="numeroTelefono"
+              rules={[{
+                  required:true,
+                  message: "Por favor ingresa el numeroTelefono "
+              }]}
+              name="numeroTelefono"
+              >
+              <Input placeholder="input numeroTelefono" name="numeroTelefono" value={formData.numeroTelefono} onChange={handleChange} />
+          </Item>
+
+          <Item 
+              label="correoElectronico"
+              rules={[{
+                  required:true,
+                  message: "Por favor ingresa el correoElectronico "
+              }]}
+              name="correoElectronico"
+              >
+              <Input placeholder="input correoElectronico" name="correoElectronico" value={formData.correoElectronico} onChange={handleChange} />
+          </Item>
+
+      </Form>
+
+</Modal>
 
         </div>
 
