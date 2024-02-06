@@ -1,6 +1,6 @@
 import { Menu } from "antd";
 import { AppstoreOutlined } from "@ant-design/icons";
-import { BarsOutlined, UserOutlined, CarOutlined ,LogoutOutlined, BarChartOutlined } from "@ant-design/icons";
+import { BarsOutlined, UserOutlined,LogoutOutlined, BarChartOutlined } from "@ant-design/icons";
 import style from '../styles/MenuList.module.css'
 import { Link, useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";

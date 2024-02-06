@@ -81,7 +81,7 @@ export const Login = (  ) => {
         }
 
         
-    }
+     }
 
 
     /************************************* */
@@ -353,15 +353,15 @@ export const Login = (  ) => {
 
     <>   
         <div className={styles.container__padre} >                          
-            <div className={styles.container} >
+{/*             <div className={styles.container} >
 
                 {
                     currentTheme === 'light'
-                    ?  <p className={styles.iniciar__sesion} > Iniciar sesion J </p> 
+                    ?  <p className={styles.iniciar__sesion} > Iniciar sesion  </p> 
                     :   <p className={styles.iniciar__sesion__dark} > Iniciar sesion </p> 
                 }
                
-            </div> 
+            </div>  */}
 
             <div className={styles.sub_container} >
                          
@@ -371,7 +371,7 @@ export const Login = (  ) => {
                     token: currentTheme==='light' ? lightTheme : darkTheme ,
                     }} >
             
-                        <Radio.Group
+{/*                         <Radio.Group
                             value={currentTheme}
                             onChange={(e)=>{
                                 setCurrentTheme(e.target.value)
@@ -381,7 +381,7 @@ export const Login = (  ) => {
                             <Radio value={"light"} >Light</Radio>
                             <Radio value={"dark"} >Dark</Radio>
 
-                        </Radio.Group>
+                        </Radio.Group> */}
 
                     <Row>
                         <Col xs={1} sm={2} md={6} lg={7} >
@@ -438,22 +438,27 @@ export const Login = (  ) => {
                                         </Item>
 
 
-
-
-
-
-
-                                            <Item onClick={ () =>showModalRegistro() }
+                           {/*                  <Item onClick={ () =>showModalRegistro() }
                                                 label="Quiere registrarse?" >
-                                             </Item>     
+                                             </Item>      */}
                                         
 
 
                                         <Item 
                                             style={{textAlign: 'center'}}
                                         >
+                                        
+                                        <ConfigProvider
+                                          theme={{
+                                            token:{
+                                              colorPrimary: "EFB810",
+                                              padding: "200px"
+                                            },
+                                          }}
+                                        >
 
                                             <Button type='primary' htmlType='submit' onClick={()=>iniciarSesion()} >Iniciar Sesión</Button>
+                                        </ConfigProvider>
                                             {/* <h1> mira el counter:
                                             {   counterJaime}
 
@@ -486,13 +491,15 @@ export const Login = (  ) => {
 
         </a>
       </Modal>       
-      <Modal title="Reistro!" open={isModalOpenRegistro} onOk={handleOkRegistro} onCancel={handleCancelRegistro}>
+
+
+    {/*   <Modal title="Reistro!" open={isModalOpenRegistro} onOk={handleOkRegistro} onCancel={handleCancelRegistro}>
             <Form
                 {...formItemLayout}
                 ref={formRefRegistro}
                 name="FormularioRegistro"
                 onFinish={guardarUsuario}
-                // onFinish={formSuccessRegistro}
+      
                                             
             >
             
@@ -564,7 +571,7 @@ export const Login = (  ) => {
 
                 <Item 
                     label="Contraseña"
-                    //name="password"
+
                     rules={[{
                         required: true,
                         message: "Por favor Ingresa tu Contraseña"
@@ -583,7 +590,7 @@ export const Login = (  ) => {
                     style={{textAlign: 'center'}}
                 >
                     <Button  type="primary" htmlType='submit'   >Submit Registro</Button>
-                    {/* <Button  type="primary" htmlType='submit' onClick={guardarPelicula}  >Submit</Button> */}
+
                 </Item>
 
            
@@ -592,7 +599,7 @@ export const Login = (  ) => {
             
             
             </Form>
-      </Modal>
+      </Modal> */}
 
       <Modal title="El usuario se ha agregado correctamente!" open={isModalOpenRegistroSucces} onOk={handleOkRegistroSucces} onCancel={handleCancelRegistroSucces}  >
       </Modal>             

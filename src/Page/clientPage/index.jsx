@@ -2,13 +2,13 @@ import styled from "styled-components";
 import reactImage from '../../assets/header.svg';
 import { useEffect, useState } from "react";
 import axios from "axios";
-import { Button, Input, Table } from "antd";
+import { Button, ConfigProvider, Input, Table } from "antd";
 import {EditOutlined, DeleteOutlined } from "@ant-design/icons";
-import { Modal } from 'antd';
+import { Modal, Form } from 'antd';
 import { AudioOutlined } from '@ant-design/icons';
 import React, { createRef} from 'react';
-// import {  Space } from 'antd';
-import { Form } from "react-router-dom";
+import {  Space } from 'antd';
+
 
 
 const { Search } = Input;
@@ -22,9 +22,55 @@ const { Search } = Input;
     }}
   />
 );
+const StyledTable = styled(Table)`
+  background-color: #ccc; // Cambia esto al color gris que desees
+  .ant-table-thead .ant-table-cell {
+    background-color: #555555 !important; // Cambia esto al color gris que desees
+  }
+  tbody {
+    background-color: #353535 !important; // Cambia esto al color gris que desees
+  }
+`;
+
+  
+
 
 const onSearch = (value, _e, info) => console.log(info?.source, value);
- 
+
+
+export const ContainerSearch = styled(Search)`
+  .ant-input,
+  .ant-btn {
+    height: 48px !important;
+  }
+
+  .ant-input-group {
+    height: 48px !important;
+  }
+
+  .ant-input-search {
+    height: 48px !important;
+    border: solid green 3px;
+  }
+`;
+
+
+/* 
+export const ContainerSearch = styled(Search)`
+.ant-input {
+  height: 48px;
+}
+
+.ant-input-group {
+  height: 48px;
+}
+
+.ant-input-search {
+  height: 48px;
+  border: solid green 3px;
+}
+
+` */
 
 export const ContainerPrincipal = styled.div`
   width: 100%;
@@ -34,6 +80,7 @@ export const ContainerPrincipal = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  background-color: #353535;
 
   .imagen__banner{
     width: 100%;
@@ -86,6 +133,14 @@ useEffect(() => {
 
 }, [])
 
+// Buscar
+const [searchedText, setSearchedText] = useState("")
+
+const onchangeTable=(pagination,filters,sorter,extra) =>{
+  console.log('params', pagination,filters,sorter, extra);
+}
+
+
 //Diseño de tabla 
 const colums = [
   {
@@ -96,7 +151,25 @@ const colums = [
   {
     key:'2',
     title:'nombreCompleto',
-    dataIndex:'nombreCompleto'
+    dataIndex:'nombreCompleto',
+    filteredValue: [searchedText],
+     onFilter: (value , record) => {
+    return (
+      
+    String(record.nombreCompleto)
+      .toLowerCase()
+      .includes(value.toLowerCase()) ||
+    String(record.direccionDomicilio)
+      .toLowerCase()
+      .includes(value.toLowerCase()) || 
+    String(record.numeroTelefono)
+      .toLowerCase()
+      .includes(value.toLowerCase()) ||
+    String(record.correoElectronico)
+      .toLowerCase()
+      .includes(value.toLowerCase()) 
+    )
+  }
   },
   {
     key:'3',
@@ -296,6 +369,9 @@ const guardarCliente = async (formValues = formData) => {
   }
 }
 
+
+
+
     return (
       <>  
       <ContainerPrincipal>
@@ -316,34 +392,94 @@ const guardarCliente = async (formValues = formData) => {
         <div className="cuerpo__container">
 
           <div style={{width:"100%",
-                        height:"15vh",
                         border:"orange solid 3px",
                         display:"flex",
+                        margin: "20px 0px 20px 0px",
                         flexDirection:"column"  }}          >
 
 
-          <div>
-            <Button  onClick={ () => { setIsSaving (true)} } type="primary" >Agregar</Button>
+
+          <div style={
+          {border:"red solid 3px",
+          width:"100%",
+          display:"flex",
+          justifyContent:"flex-end",
+          margin:"20px 20px 20px 0px"
+          }          }>
+            <ConfigProvider
+            theme={{
+              token:{
+                colorPrimary: "EFB810"
+              },
+            }}>
+            <Button 
+            style={{
+              width:"137px",
+              height:"48px",
+              marginRight:"20px"
+              
+            }}
+            onClick={ () => { setIsSaving (true)} } type="primary" >Agregar</Button>
+
+            </ConfigProvider>
           </div>
           <div>
 
-          <Search
-            placeholder="input search text"
-            allowClear
-            enterButton="Search"
-            size="large"
-            onSearch={onSearch}
-          /> 
+          <ConfigProvider
+            theme={{
+              token:{
+                colorPrimary: "EFB810"
+              },
+            }}>
+            <ContainerSearch
+              style={{
+              width:"50%",
+                  }
+              }
+              placeholder="input search text"
+              allowClear
+              enterButton="Search"
+              size="large"
+              onSearch = {(value)=> {
+                setSearchedText(value)
+                alert(value)
+              }}
+              onChange={(e)=>{
+                setSearchedText(e.target.value )
+              }}
+            /> 
+          </ConfigProvider>
           </div>
 
           </div>
 
-
-          <Table
+          <ConfigProvider
+            theme={{
+              token:{
+                colorPrimary: "EFB810",
+                colorTextBase: "white",
+                colorTextLightSolid: "red"
+              },
+            }}>
+          <StyledTable
+          pagination={{
+            pageSize: 8,
+            
+          }}
+          style={{
+            // backgroundColor:"#353535"
+            backgroundColor: "#353535 !important", 
+            
+          }}
             columns={colums}
             dataSource={clientes}
+            onchangeTable={onchangeTable}
           
-          ></Table>
+          >
+
+          </StyledTable>
+          </ConfigProvider>
+
 
 
           <Modal
@@ -379,12 +515,12 @@ const guardarCliente = async (formValues = formData) => {
 
 
 
-Id: formValues.idCliente,
+{/* Id: formValues.idCliente,
                   IdTipoDocumento: formValues.idTipoDocumento,
                   NombreCompleto: formValues.nombreCompleto,
                   DireccionDomicilio: formValues.direccionDomicilio,
                   NumeroTelefono: formValues.numeroTelefono,
-                  CorreoElectronico: formValues.correoElectronico,
+                  CorreoElectronico: formValues.correoElectronico, */}
                   
               <Input
                 value={valueInputEditingCliente?.idCliente}
@@ -413,19 +549,24 @@ Id: formValues.idCliente,
             
           </Modal>
 
+
+
           <Modal
+
   title="Guardar Cliente"
   visible={isSaving}
   onCancel={() => {
     resetSaving()
   }}
+
   onOk={() => {
     guardarCliente(formData)
   }}
 
 
   okText="Guardar"
->
+          >
+            
      <Form
           ref={formRef}
           name="Formulario"
