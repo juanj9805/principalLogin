@@ -22,26 +22,33 @@ const { Search } = Input;
     }}
   />
 );
+
 const StyledTable = styled(Table)`
-  background-color: #ccc; // Cambia esto al color gris que desees
+  background-color: #ccc !important; // Cambia esto al color gris que desees
   .ant-table-thead .ant-table-cell {
     background-color: #555555 !important; // Cambia esto al color gris que desees
   }
   tbody {
     background-color: #353535 !important; // Cambia esto al color gris que desees
+    tr:hover {
+      color: black !important;
+      background-color: #202020 !important; // Cambia esto al color que deseas en el hover
+      // Agrega otros estilos de hover según tus preferencias
+    }
   }
 `;
+
 
   
 
 
 const onSearch = (value, _e, info) => console.log(info?.source, value);
 
-
 export const ContainerSearch = styled(Search)`
   .ant-input,
   .ant-btn {
     height: 48px !important;
+    background-color: gray !important; 
   }
 
   .ant-input-group {
@@ -51,6 +58,19 @@ export const ContainerSearch = styled(Search)`
   .ant-input-search {
     height: 48px !important;
     border: solid green 3px;
+  }
+
+  .ant-input-search-button {
+    height: 63px !important;
+  }
+
+  .ant-input-affix-wrapper {
+    background-color: gray !important; // Agrega esta línea
+  }
+
+  .ant-btn {
+    height: 63px !important;
+    background-color: #EFB810 !important; // Agrega esta línea
   }
 `;
 
@@ -75,7 +95,6 @@ export const ContainerSearch = styled(Search)`
 export const ContainerPrincipal = styled.div`
   width: 100%;
   height: 100vh;
-  border: dotted red 4px;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -85,7 +104,6 @@ export const ContainerPrincipal = styled.div`
   .imagen__banner{
     width: 100%;
     height: 20vh;
-    border: dotted yellow 4px;
     background: url('../../assets/header.svg');
     background-repeat: no-repeat;
     background-size: cover; 
@@ -107,7 +125,7 @@ export const ContainerPrincipal = styled.div`
 }
 
   .cuerpo__container{
-    border: dotted blue 4px;
+    // border: dotted blue 4px;
     width: 100%;
     height: 80vh;
   }
@@ -392,7 +410,6 @@ const guardarCliente = async (formValues = formData) => {
         <div className="cuerpo__container">
 
           <div style={{width:"100%",
-                        border:"orange solid 3px",
                         display:"flex",
                         margin: "20px 0px 20px 0px",
                         flexDirection:"column"  }}          >
@@ -400,7 +417,8 @@ const guardarCliente = async (formValues = formData) => {
 
 
           <div style={
-          {border:"red solid 3px",
+          {
+            // border:"red solid 3px",
           width:"100%",
           display:"flex",
           justifyContent:"flex-end",
