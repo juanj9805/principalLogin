@@ -370,18 +370,7 @@ export const Login = (  ) => {
                     theme={{
                     token: currentTheme==='light' ? lightTheme : darkTheme ,
                     }} >
-            
-{/*                         <Radio.Group
-                            value={currentTheme}
-                            onChange={(e)=>{
-                                setCurrentTheme(e.target.value)
-                            }}
-                        >
 
-                            <Radio value={"light"} >Light</Radio>
-                            <Radio value={"dark"} >Dark</Radio>
-
-                        </Radio.Group> */}
 
                     <Row>
                         <Col xs={1} sm={2} md={6} lg={7} >
@@ -391,6 +380,10 @@ export const Login = (  ) => {
 
                 
                                     <Form
+                                     style={{
+                                        border: "solid red 3px",  
+                                        width: "80% !important"    
+                                    }}
                                         {...formItemLayout}
                                         ref={formRef}
                                         name="Formulario"
@@ -403,7 +396,7 @@ export const Login = (  ) => {
                                     >
                                         
                                         
-                                        
+            
                                         
                                         <Item 
                                             label="Correo" 

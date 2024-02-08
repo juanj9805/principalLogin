@@ -8,6 +8,7 @@ import { useSelector, useDispatch } from "react-redux";
 import {changeAuthorized} from "../../../store/slices/authorized/authorizedSlice"
 
 
+
 const MenuList = ({ darkTheme }) => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -16,8 +17,20 @@ const MenuList = ({ darkTheme }) => {
     navigate('/');
     dispatch( changeAuthorized() )
   };
+  const themeColors = {
+    background: darkTheme ? '#202020' : '#ffffff', // Fondo verde oscuro para dark, blanco para light
+    text: darkTheme ? '#ffffff' : '#333333', // Texto blanco para dark, oscuro para light
+    // background: darkTheme ? '#008000' : '#ffffff', // Fondo verde oscuro para dark, blanco para light
+    // text: darkTheme ? '#ffffff' : '#333333', // Texto blanco para dark, oscuro para light
+
+  };
+
   return (
     <Menu
+    style={{
+      background: themeColors.background,
+      color: themeColors.text,
+    }}
       theme={darkTheme ? "dark" : "light"}
       mode="inline"
       className={style.menu__bar}
