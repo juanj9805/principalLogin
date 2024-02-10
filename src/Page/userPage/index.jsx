@@ -4,9 +4,10 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import { Input, Modal, Table } from "antd";
 import { EditOutlined, DeleteOutlined} from "@ant-design/icons";
+import { ConfigProvider, theme } from 'antd';
 
 
-export const ContainerPrincipal = styled.div`
+/* export const ContainerPrincipal = styled.div`
   width: 100%;
   height: 100vh;
   border: dotted red 4px;
@@ -41,6 +42,91 @@ export const ContainerPrincipal = styled.div`
 
   .cuerpo__container{
     border: dotted blue 4px;
+    width: 100%;
+    height: 80vh;
+  }
+
+` */
+
+const StyledTable = styled(Table)`
+  background-color: #ccc !important; // Cambia esto al color gris que desees
+  .ant-table-thead .ant-table-cell {
+    background-color: #555555 !important; // Cambia esto al color gris que desees
+  }
+  tbody {
+    background-color: #353535 !important; // Cambia esto al color gris que desees
+    tr:hover {
+      color: black !important;
+      background-color: #202020 !important; // Cambia esto al color que deseas en el hover
+      // Agrega otros estilos de hover según tus preferencias
+    }
+  }
+`;
+
+/* export const ContainerSearch = styled(Search)`
+  .ant-input,
+  .ant-btn {
+    height: 48px !important;
+    background-color: gray !important; 
+  }
+
+  .ant-input-group {
+    height: 48px !important;
+  }
+
+  .ant-input-search {
+    height: 48px !important;
+    border: solid green 3px;
+  }
+
+  .ant-input-search-button {
+    height: 63px !important;
+  }
+
+  .ant-input-affix-wrapper {
+    background-color: gray !important; // Agrega esta línea
+  }
+
+  .ant-btn {
+    height: 63px !important;
+    background-color: #EFB810 !important; // Agrega esta línea
+  }
+`; */
+
+export const ContainerPrincipal = styled.div`
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-color: #353535;
+
+  .imagen__banner{
+    width: 100%;
+    height: 20vh;
+    background: url('../../assets/header.svg');
+    background-repeat: no-repeat;
+    background-size: cover; 
+    background-position: center;
+    color: white;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: center;
+
+    h1{
+        margin-left: 20px;
+    }
+    
+    h4{
+        margin-left: 20px;
+
+    }
+}
+
+  .cuerpo__container{
+    // border: dotted blue 4px;
     width: 100%;
     height: 80vh;
   }
@@ -215,13 +301,28 @@ const actualizarUsuario = async (formValues) => {
       <br />
       <h4>Nos encanta verte nuevamente.</h4>
   </div>
-  <div className="cuerpo__container">
+  <div className="cuerpo__container"
+  style={{width:"100%",
+  display:"flex",
+  margin: "20px 0px 20px 0px",
+  flexDirection:"column"  }} >
 
-  <Table
-    columns={colums}
-    dataSource={usuario}
-  
-  ></Table>
+<ConfigProvider
+    theme={{
+      // 1. Use dark algorithm
+      algorithm: theme.darkAlgorithm,
+
+      // 2. Combine dark algorithm and compact algorithm
+      // algorithm: [theme.darkAlgorithm, theme.compactAlgorithm],
+    }}
+  >
+    <Table
+      columns={colums}
+      dataSource={usuario}
+    
+    ></Table>
+</ConfigProvider>
+
 
 <Modal
     title="Editar Usuario"

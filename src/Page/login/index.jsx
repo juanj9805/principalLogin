@@ -14,6 +14,8 @@ import md5 from 'md5';
 import { useSelector, useDispatch  } from "react-redux";
 import {changeAuthorized} from "../../store/slices/authorized/authorizedSlice"
 import { useNavigate } from 'react-router-dom';
+import LogoProfe from '../../assets/profeLogo.svg'
+import FooterProfe from '../../assets/footer.svg'
 
 
 const {Item} = Form;
@@ -348,10 +350,14 @@ export const Login = (  ) => {
 
     // } , [authorizedStateRedux])
 
+    const estiloClipPath = {
+        clipPath: 'ellipse(76% 40% at 73% 97%)'}
+
     return (
 
 
     <>   
+
         <div className={styles.container__padre} >                          
 {/*             <div className={styles.container} >
 
@@ -364,6 +370,10 @@ export const Login = (  ) => {
             </div>  */}
 
             <div className={styles.sub_container} >
+
+                <img src={LogoProfe}>
+                
+                </img>
                          
                 <ConfigProvider 
                     className={styles.container}
@@ -372,17 +382,13 @@ export const Login = (  ) => {
                     }} >
 
 
-                    <Row>
-                        <Col xs={1} sm={2} md={6} lg={7} >
-                        </Col>
-
-                        <Col xs={22} sm={20} md={12} lg={10} >
+             
 
                 
                                     <Form
                                      style={{
-                                        border: "solid red 3px",  
-                                        width: "80% !important"    
+                                        // border: "solid red 3px",  
+                                        width: "66% "    
                                     }}
                                         {...formItemLayout}
                                         ref={formRef}
@@ -399,7 +405,7 @@ export const Login = (  ) => {
             
                                         
                                         <Item 
-                                            label="Correo" 
+                                            // label="Correo" 
                                             // name='correo'
                                             rules={[{
                                                 required:true,
@@ -407,7 +413,7 @@ export const Login = (  ) => {
                                             }]}
                                             >
                                                 <Input 
-
+                                                placeholder='Usuario'
                                                 name='correo'
                                                 onChange={handleChange}
                                                 />
@@ -415,7 +421,7 @@ export const Login = (  ) => {
                                         </Item>
 
                                         <Item 
-                                            label="Contraseña"
+                                            // label="Contraseña"
                                             //name="password"
                                             rules={[{
                                                 required: true,
@@ -424,6 +430,7 @@ export const Login = (  ) => {
                                             >
                                                 <Password
 
+                                                placeholder='Contraseña'
                                                 name='password'
                                                 onChange={handleChange}
                                                 />
@@ -444,13 +451,18 @@ export const Login = (  ) => {
                                         <ConfigProvider
                                           theme={{
                                             token:{
-                                              colorPrimary: "EFB810",
+                                              colorPrimary: "#ff8a00",
+                                            //   background: linear-gradient(to right, #ff8a00, #e52e71);
                                               padding: "200px"
                                             },
                                           }}
                                         >
 
-                                            <Button type='primary' htmlType='submit' onClick={()=>iniciarSesion()} >Iniciar Sesión</Button>
+                                            <Button type='primary' htmlType='submit' onClick={()=>iniciarSesion()} 
+                                            style={{
+                                                background: "linear-gradient(to right, #00A1B5, #00CEE8)"
+                                            }}
+                                            >Iniciar Sesión</Button>
                                         </ConfigProvider>
                                             {/* <h1> mira el counter:
                                             {   counterJaime}
@@ -468,12 +480,23 @@ export const Login = (  ) => {
                                             {/* <Button onClick={ () =>  showModal() } >Show Modal</Button> Este sii nooo! */}
 
 
-                        </Col>
-                        <Col xs={1} sm={2} md={6} lg={7} >
-                        </Col>
-                    </Row>
+               
 
                 </ConfigProvider>
+            </div>
+            <div style={{
+                width:"100%",
+                // border: "solid red 3px",
+                // marginTop:"100px"
+                position:"absolute",
+                bottom:"0px"
+            }}>
+
+            <img 
+            style={{
+                width:"100%"
+            }}
+            src={FooterProfe} alt="" />       
             </div>
         </div> 
         <Modal title="Su registro ha sido exitoso!" open={isModalOpen} onOk={handleOk} onCancel={handleCancel}>
@@ -595,7 +618,8 @@ export const Login = (  ) => {
       </Modal> */}
 
       <Modal title="El usuario se ha agregado correctamente!" open={isModalOpenRegistroSucces} onOk={handleOkRegistroSucces} onCancel={handleCancelRegistroSucces}  >
-      </Modal>             
+      
+      </Modal>  
     </>
     );
 }

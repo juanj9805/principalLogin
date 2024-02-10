@@ -2,12 +2,12 @@ import styled from "styled-components";
 import reactImage from '../../assets/header.svg';
 import { useEffect, useState } from "react";
 import axios from "axios";
-import { Button, ConfigProvider, Input, Table } from "antd";
+import { Button, ConfigProvider, Input, Table, theme } from "antd";
 import {EditOutlined, DeleteOutlined } from "@ant-design/icons";
 import { Modal, Form } from 'antd';
 import { AudioOutlined } from '@ant-design/icons';
 import React, { createRef} from 'react';
-import {  Space } from 'antd';
+
 
 
 
@@ -471,15 +471,18 @@ const guardarCliente = async (formValues = formData) => {
 
           </div>
 
+
           <ConfigProvider
-            theme={{
-              token:{
-                colorPrimary: "EFB810",
-                colorTextBase: "white",
-                colorTextLightSolid: "red"
-              },
-            }}>
-          <StyledTable
+    theme={{
+      // 1. Use dark algorithm
+      algorithm: theme.darkAlgorithm,
+
+      // 2. Combine dark algorithm and compact algorithm
+      // algorithm: [theme.darkAlgorithm, theme.compactAlgorithm],
+    }}
+  >
+
+          <Table
           pagination={{
             pageSize: 8,
             
@@ -495,8 +498,10 @@ const guardarCliente = async (formValues = formData) => {
           
           >
 
-          </StyledTable>
-          </ConfigProvider>
+          </Table>
+</ConfigProvider>
+      
+    
 
 
 

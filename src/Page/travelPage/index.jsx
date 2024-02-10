@@ -2,22 +2,22 @@ import styled from "styled-components";
 import reactImage from "../../assets/header.svg"
 import axios from "axios";
 import { useEffect, useState } from "react";
-import { Input, Modal, Table } from "antd";
+import { Input, Modal, Table, theme, ConfigProvider } from "antd";
 import {EditOutlined, DeleteOutlined} from "@ant-design/icons";
+import Card from "./components/Card";
 
 export const ContainerPrincipal = styled.div`
   width: 100%;
   height: 100vh;
-  border: dotted red 4px;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  background-color: #353535;
 
   .imagen__banner{
     width: 100%;
     height: 20vh;
-    border: dotted yellow 4px;
     background: url('../../assets/header.svg');
     background-repeat: no-repeat;
     background-size: cover; 
@@ -39,7 +39,7 @@ export const ContainerPrincipal = styled.div`
 }
 
   .cuerpo__container{
-    border: dotted blue 4px;
+    // border: dotted blue 4px;
     width: 100%;
     height: 80vh;
   }
@@ -235,11 +235,24 @@ const actualizarViaje = async (formValues) => {
         </div>
         <div className="cuerpo__container">
 
+        <ConfigProvider
+    theme={{
+      // 1. Use dark algorithm
+      algorithm: theme.darkAlgorithm,
+
+      // 2. Combine dark algorithm and compact algorithm
+      // algorithm: [theme.darkAlgorithm, theme.compactAlgorithm],
+    }}
+  >
+
         <Table
           columns={colums}
           dataSource={viajes}
         
         ></Table>
+</ConfigProvider>
+
+<Card ejemplo={"ejemplo juan"} data={viajes}/>
 
 <Modal
     title="Editar Paquete"
@@ -300,6 +313,7 @@ const actualizarViaje = async (formValues) => {
 </Modal>
 
         </div>
+        
 
       </ContainerPrincipal>
     </>

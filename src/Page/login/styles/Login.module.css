@@ -34,7 +34,7 @@
 }
 
     .sub__container{
-        height: 50vh;
+        height: 30vh;
         width: 100%;
         position: absolute;
         top: 50%;
@@ -77,23 +77,39 @@
         }
 
 .sub_container{
-    width: 90%;
-    border: dotted red 4px;
-    width: 40%;
+    background-color: white;
+    /* border: dotted red 4px; */
+    border-radius: 10px;
+    width: 25%;
     height: 60vh;
     display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
+
+    
+
 
 .container__padre{
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    border: dotted rgba(5, 5, 104, 0.364) 4px;
-    margin-top: 5vh;
-    margin-bottom: 5vh;
-    height: 65vh;
+    /* border: dotted rgba(5, 5, 104, 0.364) 4px; */
+    position: relative;
+/*     margin-top: 5vh;
+    margin-bottom: 5vh; */
+    height: 100vh;
     width: 100%;
+    background: url("/src/assets/hoja.svg");
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    /* margin-top: -55px   ; */
 }
+
+/* .pathLogin{
+    clip-path: ellipse(76% 40% at 73% 97%);
+} */

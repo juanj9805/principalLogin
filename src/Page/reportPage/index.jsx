@@ -1,19 +1,19 @@
 import styled from "styled-components";
 import reactImage from "../../assets/header.svg"
 
+
 export const ContainerPrincipal = styled.div`
   width: 100%;
   height: 100vh;
-  border: dotted red 4px;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  background-color: #353535;
 
   .imagen__banner{
     width: 100%;
     height: 20vh;
-    border: dotted yellow 4px;
     background: url('../../assets/header.svg');
     background-repeat: no-repeat;
     background-size: cover; 
@@ -35,7 +35,7 @@ export const ContainerPrincipal = styled.div`
 }
 
   .cuerpo__container{
-    border: dotted blue 4px;
+    // border: dotted blue 4px;
     width: 100%;
     height: 80vh;
   }
