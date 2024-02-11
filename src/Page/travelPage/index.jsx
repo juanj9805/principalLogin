@@ -5,6 +5,8 @@ import { useEffect, useState } from "react";
 import { Input, Modal, Table, theme, ConfigProvider } from "antd";
 import {EditOutlined, DeleteOutlined} from "@ant-design/icons";
 import Card from "./components/Card";
+import { useDispatch, useSelector } from 'react-redux';
+import { getViajesThunks } from "../../store/slices/viajes";
 
 export const ContainerPrincipal = styled.div`
   width: 100%;
@@ -48,14 +50,31 @@ export const ContainerPrincipal = styled.div`
 
 export const TravelPage = () => {
 
+  //REDUX
+  const dispatch = useDispatch();
+  
+  const {  getViajes = [], isLoading } = useSelector( state => state.viajes );
+  
+  useEffect( ()=> {
+    
+    dispatch( getViajesThunks()  ); // Del archivo "Thunks"
+    
+  }, [] )
+
+/*   console.log("viajes con redux")
+  console.log(getViajes) */
+  
+  //REDUX
+
+
   const [viajes, setViajes] = useState([])
 
   const mostrarViajes = async () => {
     try {
       const response = await axios.get("https://localhost:7211/api/Paquete/ObtenerPaquetes");
-      console.log(JSON.stringify(response.data, null, 2));
+      // console.log(JSON.stringify(response.data, null, 2));
       setViajes(response.data);
-      console.log(viajes);
+      // console.log(viajes);
     } catch (error) {
       console.error('Error:', error);
     }
@@ -120,7 +139,7 @@ const colums = [
 //Delete
 
 const onDeleteViaje = (record) => {
-  console.log("Record:", record);
+  // console.log("Record:", record);
 
   Modal.confirm({
     title: '¿Estás seguro de eliminar?',
@@ -247,12 +266,28 @@ const actualizarViaje = async (formValues) => {
 
         <Table
           columns={colums}
-          dataSource={viajes}
+          dataSource={getViajes}
         
         ></Table>
 </ConfigProvider>
 
-<Card ejemplo={"ejemplo juan"} data={viajes}/>
+<div style={{
+  border:"solid blue 3px",
+  width:"100%",
+  display:"flex ",
+  flexWrap:"wrap",
+  flexDirection:"row ",
+  justifyContent:"space-around",
+  alignItems:"center"
+}}>
+
+<Card 
+style={{
+  border:"solid blue 3px",
+  width:"100%"
+}}
+ejemplo={"ejemplo juan"} data={getViajes}/>
+</div>
 
 <Modal
     title="Editar Paquete"
