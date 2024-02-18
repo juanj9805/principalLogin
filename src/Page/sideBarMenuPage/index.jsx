@@ -15,13 +15,16 @@ const { Header, Sider } = Layout;
 const SideBarMenuPage = () => {
 
   const darkThemeColors = {
-    background: '#202020', // verde oscuro para dark
+    background: 'white', // verde oscuro para dark
     text: '#ffffff', // blanco para el texto en dark
+    boxShadow: '5px 5px 10px rgba(0, 0, 0, 0.5)' 
   };
   
   const lightThemeColors = {
     background: '#ffffff', // blanco para light
     text: '#333333', // color de texto para light
+    boxShadow: '5px 5px 10px rgba(0, 0, 0, 0.5)' 
+
   };
 
   
@@ -53,16 +56,25 @@ const SideBarMenuPage = () => {
             style={{
               background: themeColors.background,
               color: themeColors.text,
+              boxShadow: themeColors.boxShadow,
+              // height: '100%'
               
             }}
           >
             <Logo />
-            <MenuList darkTheme={darkTheme} />
+            <MenuList
+             darkTheme={darkTheme} />
             <ToggleThemeButton darkTheme={darkTheme} toggleTheme={toggleTheme} />
           </Sider>
   
           <Header 
-          style={{ padding: 0, background: themeColors.background, color: themeColors.text , height: '100vh'}}>
+          style={{ 
+            padding: 0, 
+            background: themeColors.background, 
+            color: themeColors.text , 
+            height: '100%',
+            backgroundColor:"white !important"
+            }}>
             <Button
               type="text"
               className="toggle"

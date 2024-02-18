@@ -9,7 +9,7 @@ import { ConfigProvider, theme } from 'antd';
 
 /* export const ContainerPrincipal = styled.div`
   width: 100%;
-  height: 100vh;
+  height: 100%;
   border: dotted red 4px;
   display: flex;
   flex-direction: column;
@@ -89,23 +89,24 @@ const StyledTable = styled(Table)`
 
   .ant-btn {
     height: 63px !important;
-    background-color: #EFB810 !important; // Agrega esta línea
+    background-color: #0C9999 !important; // Agrega esta línea
   }
 `; */
 
 export const ContainerPrincipal = styled.div`
   width: 100%;
-  height: 100vh;
+  height: 100%;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  background-color: #353535;
+  background-color: white;
 
   .imagen__banner{
     width: 100%;
     height: 20vh;
-    background: url('../../assets/header.svg');
+    // background: url('../../assets/header.svg');
+    background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.2)), url('../../assets/header.svg');
     background-repeat: no-repeat;
     background-size: cover; 
     background-position: center;
@@ -114,6 +115,9 @@ export const ContainerPrincipal = styled.div`
     flex-direction: column;
     align-items: flex-start;
     justify-content: center;
+    border-radius: 10px;
+    box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.5);
+    margin: 20px;
 
     h1{
         margin-left: 20px;
@@ -153,6 +157,7 @@ export const UserPage = () => {
 
   }, [])
 
+
 //Tablas
 const colums = [
   {
@@ -182,7 +187,7 @@ const colums = [
   },
   {
     key:'6',
-    title:'Actions',
+    title:'Acciones',
     render:(record)=>{
       return <>
         <EditOutlined onClick={()=>{onEditUsuario(record)}} />
@@ -289,18 +294,18 @@ const actualizarUsuario = async (formValues) => {
   <ContainerPrincipal>
 
 <div className="imagen__banner" style={{ 
-  background: `url(${reactImage})`,
-  backgroundRepeat: "no-repeat",
-  backgroundSize: "cover", 
-  backgroundPosition: "center"
+        background: `linear-gradient(to right, rgba(12, 153, 153, 0.6), rgba(12, 153, 153, 0)) 0%, url(${reactImage})`,
+        backgroundRepeat: "no-repeat",
+        backgroundSize: "cover",  // Ajusta esta propiedad para cubrir toda la imagen
+        backgroundPosition: "center",
+        height: "15vh"
   
    }}>
       <h1>juan</h1>
       <br />
-      <br />
-      <br />
       <h4>Nos encanta verte nuevamente.</h4>
   </div>
+  
   <div className="cuerpo__container"
   style={{width:"100%",
   display:"flex",
@@ -310,10 +315,10 @@ const actualizarUsuario = async (formValues) => {
 <ConfigProvider
     theme={{
       // 1. Use dark algorithm
-      algorithm: theme.darkAlgorithm,
+      algorithm: theme.lightAlgorithm,
 
       // 2. Combine dark algorithm and compact algorithm
-      // algorithm: [theme.darkAlgorithm, theme.compactAlgorithm],
+      // algorithm: [theme.lightAlgorithm, theme.compactAlgorithm],
     }}
   >
     <Table

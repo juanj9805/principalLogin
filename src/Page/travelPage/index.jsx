@@ -10,17 +10,17 @@ import { getViajesThunks } from "../../store/slices/viajes";
 
 export const ContainerPrincipal = styled.div`
   width: 100%;
-  height: 100vh;
+  height: 100%;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  background-color: #353535;
+  background-color: white;
 
   .imagen__banner{
     width: 100%;
     height: 20vh;
-    background: url('../../assets/header.svg');
+    // background: url('../../assets/header.svg');
     background-repeat: no-repeat;
     background-size: cover; 
     background-position: center;
@@ -29,6 +29,11 @@ export const ContainerPrincipal = styled.div`
     flex-direction: column;
     align-items: flex-start;
     justify-content: center;
+    border-radius: 10px;
+    box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.5);
+    margin: 20px;
+
+
 
     h1{
         margin-left: 20px;
@@ -49,6 +54,23 @@ export const ContainerPrincipal = styled.div`
 `
 
 export const TravelPage = () => {
+
+  const {roleStateRedux} = useSelector  (state=>state.roles)
+  // let stateReduxOut = false
+  //Despachar la accion 
+
+
+  // const { roleStateRedux } = useSelector( state => state.authorized )
+  const [stateReduxAut , setStateReduxAut] = useState(roleStateRedux)
+  useEffect(()=>{
+
+    setStateReduxAut(roleStateRedux)
+
+  } , [roleStateRedux])
+
+// debugger;
+console.log(stateReduxAut);
+
 
   //REDUX
   const dispatch = useDispatch();
@@ -94,39 +116,44 @@ const colums = [
     title:'idPaquete',
     dataIndex:'idPaquete'
   },
+  // {
+  //   key:'2',
+  //   title:'imagenPaquete',
+  //   dataIndex:'imagenPaquete'
+  // },
   {
-    key:'2',
+    key:'3',
     title:'nombrePaquete',
     dataIndex:'nombrePaquete'
   },
   {
-    key:'3',
+    key:'4',
     title:'descripcionPaquete',
     dataIndex:'descripcionPaquete'
   },
   {
-    key:'3',
+    key:'5',
     title:'precioPaquete',
     dataIndex:'precioPaquete'
   },
   {
-    key:'4',
+    key:'6',
     title:'destinoPaquete',
     dataIndex:'destinoPaquete'
   },
   {
-    key:'5',
+    key:'7',
     title:'fechaSalida',
     dataIndex:'fechaSalida'
   },
   {
-    key:'6',
+    key:'8',
     title:'fechaRegreso',
     dataIndex:'fechaRegreso'
   },
   {
-    key:'7',
-    title:'Actions',
+    key:'9',
+    title:'Acciones',
     render:(record)=>{
       return <>
         <EditOutlined onClick={()=>{onEditViaje(record)}}/>
@@ -209,6 +236,7 @@ const actualizarViaje = async (formValues) => {
         'Content-Type': 'application/json;charset=utf-8'
       },
       body: JSON.stringify({
+        ImagenPaquete: formValues.imagenPaquete,
         NombrePaquete: formValues.nombrePaquete,
         DescripcionPaquete: formValues.descripcionPaquete,
         PrecioPaquete: formValues.precioPaquete,
@@ -237,120 +265,138 @@ const actualizarViaje = async (formValues) => {
   return (
     <>
 
-<ContainerPrincipal>
+      <ContainerPrincipal>
 
-      <div className="imagen__banner" style={{ 
-        background: `url(${reactImage})`,
+        <div className="imagen__banner" style={{ 
+        background: `linear-gradient(to right, rgba(12, 153, 153, 0.6), rgba(12, 153, 153, 0)) 0%, url(${reactImage})`,
         backgroundRepeat: "no-repeat",
-        backgroundSize: "cover", 
-        backgroundPosition: "center"
+        backgroundSize: "cover",  // Ajusta esta propiedad para cubrir toda la imagen
+        backgroundPosition: "center",
+        height: "15vh"
         
-         }}>
+        }}>
             <h1>juan</h1>
-            <br />
-            <br />
             <br />
             <h4>Nos encanta verte nuevamente.</h4>
         </div>
+
         <div className="cuerpo__container">
 
-        <ConfigProvider
-    theme={{
-      // 1. Use dark algorithm
-      algorithm: theme.darkAlgorithm,
+                {
+                  !stateReduxAut ?
+                    <ConfigProvider
+                      theme={{
+                        // 1. Use dark algorithm
+                        algorithm: theme.lightAlgorithm,
 
-      // 2. Combine dark algorithm and compact algorithm
-      // algorithm: [theme.darkAlgorithm, theme.compactAlgorithm],
-    }}
-  >
+                        // 2. Combine dark algorithm and compact algorithm
+                        // algorithm: [theme.lightAlgorithm, theme.compactAlgorithm],
+                      }}
+                    >
 
-        <Table
-          columns={colums}
-          dataSource={getViajes}
-        
-        ></Table>
-</ConfigProvider>
+                      <Table
+                        columns={colums}
+                        dataSource={getViajes}
+                      
+                      ></Table>
 
-<div style={{
-  border:"solid blue 3px",
-  width:"100%",
-  display:"flex ",
-  flexWrap:"wrap",
-  flexDirection:"row ",
-  justifyContent:"space-around",
-  alignItems:"center"
-}}>
+                    </ConfigProvider> 
+                  :
+                  <div style={{
+                    // border:"solid blue 3px",
+                    width:"100%",
+                    display:"flex ",
+                    flexWrap:"wrap",
+                    flexDirection:"row ",
+                    justifyContent:"space-around",
+                    alignItems:"center",
+                    margin:"50px 10px 50px 10px"
+                    }}>
 
-<Card 
-style={{
-  border:"solid blue 3px",
-  width:"100%"
-}}
-ejemplo={"ejemplo juan"} data={getViajes}/>
-</div>
+                      <Card 
+                        style={{
+                          border:"solid blue 3px",
+                          width:"100%"
+                        }}
+                        ejemplo={"ejemplo juan"} data={getViajes}
+                      />
 
-<Modal
-    title="Editar Paquete"
-    visible={isEditing}
-    onCancel={() => {
-      resetEditing()
-    }}
-    onOk={() => {
-      // Llama a la función actualizarJardin con los valores del formulario
-      actualizarViaje({
-        nombrePaquete: valueInputEditingViaje?.nombrePaquete,
-        descripcionPaquete: valueInputEditingViaje?.descripcionPaquete,
-        precioPaquete: valueInputEditingViaje?.precioPaquete,
-        destinoPaquete: valueInputEditingViaje?.destinoPaquete,
-        fechaSalida: valueInputEditingViaje?.fechaSalida,
-        fechaRegreso: valueInputEditingViaje?.fechaRegreso
-      });
-      setViajes(pre => {
-        return pre.map(_jardin=>{
-          if (_jardin.idPaquete === valueInputEditingViaje.idPaquete){
-            return valueInputEditingViaje
-          }
-          else{
-            return _jardin
-          }
-        })
-      })
-      resetEditing()
-    }}
-    okText="Guardar"
-  >
+                  </div>
+                }
 
-    <Input
-      value={valueInputEditingViaje?.nombrePaquete}
-      onChange={(e) => handleInputChange('nombrePaquete', e.target.value)}
-    />
-    <Input
-      value={valueInputEditingViaje?.descripcionPaquete}
-      onChange={(e) => handleInputChange('descripcionPaquete', e.target.value)}
-    />
-    <Input 
-      value={valueInputEditingViaje?.precioPaquete} 
-      onChange={(e) => handleInputChange('precioPaquete', e.target.value)}          
-    />
-    <Input 
-      value={valueInputEditingViaje?.destinoPaquete} 
-      onChange={(e) => handleInputChange('destinoPaquete', e.target.value)}          
-    />
-    <Input 
-      value={valueInputEditingViaje?.fechaSalida} 
-      onChange={(e) => handleInputChange('fechaSalida', e.target.value)}          
-    />
-    <Input 
-      value={valueInputEditingViaje?.fechaRegreso} 
-      onChange={(e) => handleInputChange('fechaRegreso', e.target.value)}          
-    />
-  
-</Modal>
+
+                 
+
+                    <Modal
+                        title="Editar Paquete"
+                        visible={isEditing}
+                        onCancel={() => {
+                          resetEditing()
+                        }}
+                        onOk={() => {
+                          // Llama a la función actualizarJardin con los valores del formulario
+                          actualizarViaje({
+                            imagenPaquete: valueInputEditingViaje?.imagenPaquete,
+                            nombrePaquete: valueInputEditingViaje?.nombrePaquete,
+                            descripcionPaquete: valueInputEditingViaje?.descripcionPaquete,
+                            precioPaquete: valueInputEditingViaje?.precioPaquete,
+                            destinoPaquete: valueInputEditingViaje?.destinoPaquete,
+                            fechaSalida: valueInputEditingViaje?.fechaSalida,
+                            fechaRegreso: valueInputEditingViaje?.fechaRegreso
+                          });
+                          setViajes(pre => {
+                            return pre.map(_jardin=>{
+                              if (_jardin.idPaquete === valueInputEditingViaje.idPaquete){
+                                return valueInputEditingViaje
+                              }
+                              else{
+                                return _jardin
+                              }
+                            })
+                          })
+                          resetEditing()
+                        }}
+                        okText="Guardar"
+                      >
+
+                        <Input
+                          value={valueInputEditingViaje?.imagenPaquete}
+                          onChange={(e) => handleInputChange('imagenPaquete', e.target.value)}
+                        />
+                        <Input
+                          value={valueInputEditingViaje?.nombrePaquete}
+                          onChange={(e) => handleInputChange('nombrePaquete', e.target.value)}
+                        />
+                        <Input
+                          value={valueInputEditingViaje?.descripcionPaquete}
+                          onChange={(e) => handleInputChange('descripcionPaquete', e.target.value)}
+                        />
+                        <Input 
+                          value={valueInputEditingViaje?.precioPaquete} 
+                          onChange={(e) => handleInputChange('precioPaquete', e.target.value)}          
+                        />
+                        <Input 
+                          value={valueInputEditingViaje?.destinoPaquete} 
+                          onChange={(e) => handleInputChange('destinoPaquete', e.target.value)}          
+                        />
+                        <Input 
+                          value={valueInputEditingViaje?.fechaSalida} 
+                          onChange={(e) => handleInputChange('fechaSalida', e.target.value)}          
+                        />
+                        <Input 
+                          value={valueInputEditingViaje?.fechaRegreso} 
+                          onChange={(e) => handleInputChange('fechaRegreso', e.target.value)}          
+                        />
+                      
+                    </Modal>
 
         </div>
         
 
       </ContainerPrincipal>
+
+
+
     </>
 );
 }

@@ -16,6 +16,7 @@ import {changeAuthorized} from "../../store/slices/authorized/authorizedSlice"
 import { useNavigate } from 'react-router-dom';
 import LogoProfe from '../../assets/profeLogo.svg'
 import FooterProfe from '../../assets/footer.svg'
+import { changeRoleAuthorized } from '../../store/slices/roleSlice/roleSlice';
 
 
 const {Item} = Form;
@@ -30,6 +31,7 @@ export const Login = (  ) => {
     // dispatch
 
     const {authorizedStateRedux} = useSelector  (state=>state.authorized)
+    const { roleStateRedux } = useSelector ( state=>state.roles)
     // let stateReduxOut = false
     //Despachar la accion 
     const dispatch = useDispatch();
@@ -124,6 +126,18 @@ export const Login = (  ) => {
       
           if (response.ok) {
             const usuario = await response.json();
+            console.log("Estamos aqui con los datos de usuario:**************");
+            console.log(usuario);
+            const idTipoRole = usuario.idTipoRole;
+            console.log(idTipoRole);
+            console.log(typeof idTipoRole);
+            if(idTipoRole === 1){
+                
+                
+                dispatch( changeRoleAuthorized() )
+            }
+            // debugger;
+            const aw = roleStateRedux;
             navigate('/');
             dispatch( changeAuthorized() )
       

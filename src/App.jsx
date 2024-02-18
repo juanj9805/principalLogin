@@ -21,6 +21,7 @@ import { ClientPage } from './Page/clientPage';
 import { TravelPage } from './Page/travelPage';
 import { ReportPage } from './Page/reportPage';
 import "bootstrap/dist/css/bootstrap.min.css"
+import {Salespage} from './Page/salesPage';
 
 function App() {
       const {authorizedStateRedux} = useSelector  (state=>state.authorized)
@@ -56,6 +57,8 @@ function App() {
               <Route path="/clientes" element={<ClientPage/>  }/>                
               <Route path="/viajes" element={<TravelPage/>  } />
               <Route path="/reportes" element={<ReportPage/>  } />
+              <Route path="/sales" element={<Salespage/>  } />
+              <Route path="/sales/:idPaquete" element={<Salespage/>  } />
             </Route>
           </Routes>
         {stateReduxAut && <Layout />}

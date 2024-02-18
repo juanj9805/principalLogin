@@ -6,7 +6,7 @@
   
   .container__app {
     display: flex;
-    border: solid red 3px;
+    /* border: solid red 3px; */
     flex-direction: row;
   }
   
@@ -18,5 +18,5 @@
     /* border: solid red 3px; */
   }
   .eje{
-    border: solid red 3px;
+    /* border: solid red 3px; */
   }

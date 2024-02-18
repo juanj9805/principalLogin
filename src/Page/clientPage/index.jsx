@@ -18,7 +18,8 @@ const { Search } = Input;
   <AudioOutlined
     style={{
       fontSize: 16,
-      color: '#1677ff',
+      color: '#0C9999',
+      
     }}
   />
 );
@@ -48,7 +49,7 @@ export const ContainerSearch = styled(Search)`
   .ant-input,
   .ant-btn {
     height: 48px !important;
-    background-color: gray !important; 
+    background-color: white !important; 
   }
 
   .ant-input-group {
@@ -65,41 +66,24 @@ export const ContainerSearch = styled(Search)`
   }
 
   .ant-input-affix-wrapper {
-    background-color: gray !important; // Agrega esta línea
+    background-color: white !important; // Agrega esta línea
   }
 
   .ant-btn {
     height: 63px !important;
-    background-color: #EFB810 !important; // Agrega esta línea
+    background-color: #0C9999 !important; // Agrega esta línea
   }
 `;
 
 
-/* 
-export const ContainerSearch = styled(Search)`
-.ant-input {
-  height: 48px;
-}
-
-.ant-input-group {
-  height: 48px;
-}
-
-.ant-input-search {
-  height: 48px;
-  border: solid green 3px;
-}
-
-` */
-
 export const ContainerPrincipal = styled.div`
   width: 100%;
-  height: 100vh;
+  height: 100%;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  background-color: #353535;
+  background-color: white;
 
   .imagen__banner{
     width: 100%;
@@ -113,6 +97,8 @@ export const ContainerPrincipal = styled.div`
     flex-direction: column;
     align-items: flex-start;
     justify-content: center;
+    border-radius: 10px;
+    box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.5);
 
     h1{
         margin-left: 20px;
@@ -168,6 +154,11 @@ const colums = [
   },
   {
     key:'2',
+    title:'numeroDocumento',
+    dataIndex:'numeroDocumento'
+  },
+  {
+    key:'3',
     title:'nombreCompleto',
     dataIndex:'nombreCompleto',
     filteredValue: [searchedText],
@@ -190,23 +181,23 @@ const colums = [
   }
   },
   {
-    key:'3',
+    key:'4',
     title:'direccionDomicilio',
     dataIndex:'direccionDomicilio'
   },
   {
-    key:'4',
+    key:'5',
     title:'numeroTelefono',
     dataIndex:'numeroTelefono'
   },
   {
-    key:'5',
+    key:'6',
     title:'correoElectronico',
     dataIndex:'correoElectronico'
   },
   {
-    key:'6',
-    title:'Actions',
+    key:'7',
+    title:'Acciones',
     render:(record)=>{
       return <>
         <EditOutlined onClick={()=>{onEditCliente(record)}} />
@@ -293,6 +284,7 @@ const actualizarCliente = async (formValues) => {
       body: JSON.stringify({
         // Id: valueInputEditingCliente.idCliente,
         IdTipoDocumento: formValues.idTipoDocumento,
+        numeroDocumento: formValues.numeroDocumento,
         NombreCompleto: formValues.nombreCompleto,
         DireccionDomicilio: formValues.direccionDomicilio,
         NumeroTelefono: formValues.numeroTelefono,
@@ -321,6 +313,7 @@ const [isSaving, setIsSaving] = useState(false)
 
 const [formData, setFormData] = useState({
   idTipoDocumento: '',
+  numeroDocumento: '',
   nombreCompleto: '',
   direccionDomicilio: '',
   numeroTelefono: '',
@@ -330,7 +323,8 @@ const [formData, setFormData] = useState({
 const resetSaving = () => {
   setIsSaving(false);
   setFormData({
-    idTipoDocumento: '',
+  idTipoDocumento: '',
+  numeroDocumento: '',
   nombreCompleto: '',
   direccionDomicilio: '',
   numeroTelefono: '',
@@ -361,6 +355,7 @@ const guardarCliente = async (formValues = formData) => {
           body: JSON.stringify({
 
             idTipoDocumento: formValues.idTipoDocumento,
+            numeroDocumento: formValues.numeroDocumento,
             nombreCompleto: formValues.nombreCompleto,
             direccionDomicilio: formValues.direccionDomicilio,
             numeroTelefono: formValues.numeroTelefono,
@@ -392,274 +387,287 @@ const guardarCliente = async (formValues = formData) => {
 
     return (
       <>  
-      <ContainerPrincipal>
+        <ContainerPrincipal>
 
-      <div className="imagen__banner" style={{ 
-        background: `url(${reactImage})`,
-        backgroundRepeat: "no-repeat",
-        backgroundSize: "cover", 
-        backgroundPosition: "center"
-        
-         }}>
-            <h1>juan</h1>
-            <br />
-            <br />
-            <br />
-            <h4>Nos encanta verte nuevamente.</h4>
+        <div className="imagen__banner" style={{ 
+         background: `linear-gradient(to right, rgba(12, 153, 153, 0.6), rgba(12, 153, 153, 0)) 0%, url(${reactImage})`,
+         backgroundRepeat: "no-repeat",
+         backgroundSize: "cover",  // Ajusta esta propiedad para cubrir toda la imagen
+         backgroundPosition: "center",
+         height: "15vh"
+    
+        }}>
+          <h1>juan</h1>
+          <br />
+          <h4>Nos encanta verte nuevamente.</h4>
         </div>
+
         <div className="cuerpo__container">
 
-          <div style={{width:"100%",
-                        display:"flex",
-                        margin: "20px 0px 20px 0px",
-                        flexDirection:"column"  }}          >
-
-
-
-          <div style={
-          {
-            // border:"red solid 3px",
-          width:"100%",
-          display:"flex",
-          justifyContent:"flex-end",
-          margin:"20px 20px 20px 0px"
-          }          }>
-            <ConfigProvider
-            theme={{
-              token:{
-                colorPrimary: "EFB810"
-              },
+            <div style={{
+              width:"100%",
+              display:"flex",
+              margin: "20px 0px 20px 0px",
+              flexDirection:"column"  
             }}>
-            <Button 
-            style={{
-              width:"137px",
-              height:"48px",
-              marginRight:"20px"
-              
-            }}
-            onClick={ () => { setIsSaving (true)} } type="primary" >Agregar</Button>
 
-            </ConfigProvider>
-          </div>
-          <div>
 
-          <ConfigProvider
-            theme={{
-              token:{
-                colorPrimary: "EFB810"
-              },
+
+            <div style={{
+              // border:"red solid 3px",
+            width:"100%",
+            display:"flex",
+            justifyContent:"flex-end",
+            margin:"20px 20px 20px 0px",
+            
             }}>
-            <ContainerSearch
+              <ConfigProvider
+              theme={{
+              token:{
+                  colorPrimary: "0C9999"
+                },
+              }}>
+
+              <Button 
               style={{
-              width:"50%",
+                width:"137px",
+                height:"48px",
+                marginRight:"20px"
+                
+              }}
+              onClick={ () => { setIsSaving (true)} } type="primary" >Agregar</Button>
+
+              </ConfigProvider>
+            </div>
+            <div>
+
+              <ConfigProvider
+                theme={{
+                token:{
+                    colorPrimary: "0C9999"
+                  },
+                }}>
+                <ContainerSearch
+                  style={{
+                  width:"50%",
+                      }
                   }
-              }
-              placeholder="input search text"
-              allowClear
-              enterButton="Search"
-              size="large"
-              onSearch = {(value)=> {
-                setSearchedText(value)
-                alert(value)
+                  placeholder="Buscar ..."
+                  allowClear
+                  enterButton="Buscar"
+                  size="large"
+                  onSearch = {(value)=> {
+                    setSearchedText(value)
+                    alert(value)
+                  }}
+                  onChange={(e)=>{
+                    setSearchedText(e.target.value )
+                  }}
+                /> 
+              </ConfigProvider>
+            </div>
+
+            </div>
+
+
+            <ConfigProvider
+              theme={{
+                // 1. Use dark algorithm
+                algorithm: theme.lightAlgorithm,
+
+                // 2. Combine dark algorithm and compact algorithm
+                // algorithm: [theme.lightAlgorithm, theme.compactAlgorithm],
               }}
-              onChange={(e)=>{
-                setSearchedText(e.target.value )
-              }}
-            /> 
-          </ConfigProvider>
-          </div>
-
-          </div>
-
-
-          <ConfigProvider
-    theme={{
-      // 1. Use dark algorithm
-      algorithm: theme.darkAlgorithm,
-
-      // 2. Combine dark algorithm and compact algorithm
-      // algorithm: [theme.darkAlgorithm, theme.compactAlgorithm],
-    }}
-  >
-
-          <Table
-          pagination={{
-            pageSize: 8,
-            
-          }}
-          style={{
-            // backgroundColor:"#353535"
-            backgroundColor: "#353535 !important", 
-            
-          }}
-            columns={colums}
-            dataSource={clientes}
-            onchangeTable={onchangeTable}
-          
-          >
-
-          </Table>
-</ConfigProvider>
-      
-    
-
-
-
-          <Modal
-              title="Editar cliente"
-              visible={isEditing}
-              onCancel={() => {
-                resetEditing()
-              }}
-              onOk={() => {
-                // Llama a la función actualizarJardin con los valores del formulario
-                actualizarCliente({
-                  // idCliente: valueInputEditingCliente?.idCliente,
-                  idTipoDocumento: valueInputEditingCliente?.idTipoDocumento,
-                  nombreCompleto: valueInputEditingCliente?.nombreCompleto,
-                  direccionDomicilio: valueInputEditingCliente?.direccionDomicilio,
-                  numeroTelefono: valueInputEditingCliente?.numeroTelefono,
-                  correoElectronico: valueInputEditingCliente?.correoElectronico
-                });
-                setClientes(pre => {
-                  return pre.map(_jardin=>{
-                    if (_jardin.idCliente === valueInputEditingCliente.idCliente){
-                      return valueInputEditingCliente
-                    }
-                    else{
-                      return _jardin
-                    }
-                  })
-                })
-                resetEditing()
-              }}
-              okText="Guardar"
             >
 
-
-
-{/* Id: formValues.idCliente,
-                  IdTipoDocumento: formValues.idTipoDocumento,
-                  NombreCompleto: formValues.nombreCompleto,
-                  DireccionDomicilio: formValues.direccionDomicilio,
-                  NumeroTelefono: formValues.numeroTelefono,
-                  CorreoElectronico: formValues.correoElectronico, */}
-                  
-              <Input
-                value={valueInputEditingCliente?.idCliente}
-                onChange={(e) => handleInputChange('idCliente', e.target.value)}
-              />
-              <Input
-                value={valueInputEditingCliente?.idTipoDocumento}
-                onChange={(e) => handleInputChange('idTipoDocumento', e.target.value)}
-              />
-              <Input 
-                value={valueInputEditingCliente?.nombreCompleto} 
-                onChange={(e) => handleInputChange('nombreCompleto', e.target.value)}          
-              />
-              <Input 
-                value={valueInputEditingCliente?.direccionDomicilio} 
-                onChange={(e) => handleInputChange('direccionDomicilio', e.target.value)}          
-              />
-              <Input 
-                value={valueInputEditingCliente?.numeroTelefono} 
-                onChange={(e) => handleInputChange('numeroTelefono', e.target.value)}          
-              />
-              <Input
-                value={valueInputEditingCliente?.correoElectronico} 
-                onChange={(e) => handleInputChange('correoElectronico', e.target.value)}          
-              />
-            
-          </Modal>
-
-
-
-          <Modal
-
-  title="Guardar Cliente"
-  visible={isSaving}
-  onCancel={() => {
-    resetSaving()
-  }}
-
-  onOk={() => {
-    guardarCliente(formData)
-  }}
-
-
-  okText="Guardar"
-          >
-            
-     <Form
-          ref={formRef}
-          name="Formulario"
-      >
-
-          <Item 
-              label="idTipoDocumento" 
-              rules={[{
-                  required:true,
-                  message: "Por favor ingresa el tipo documento "
-              }]}
-              name = "idTipoDocumento"
+              <Table
+              pagination={{
+                pageSize: 8,
+                
+              }}
+              style={{
+                // backgroundColor:"#353535"
+                backgroundColor: "#353535 !important", 
+                
+              }}
+                columns={colums}
+                dataSource={clientes}
+                onchangeTable={onchangeTable}
+              
               >
-              <Input placeholder="input idTipoDocumento"  name="idTipoDocumento" value={formData.idTipoDocumento} onChange={handleChange}/>
-          </Item>
 
-          <Item 
-              label="nombreCompleto"
-              rules={[{
-                  required:true,
-                  message: "Por favor ingresa la nombreCompleto "
-            }]}
+              </Table>
+            </ConfigProvider>
+        
+      
 
-              name="nombreCompleto"
+
+
+            <Modal
+                title="Editar cliente"
+                visible={isEditing}
+                onCancel={() => {
+                  resetEditing()
+                }}
+                onOk={() => {
+                  // Llama a la función actualizarJardin con los valores del formulario
+                  actualizarCliente({
+                    // idCliente: valueInputEditingCliente?.idCliente,
+                    idTipoDocumento: valueInputEditingCliente?.idTipoDocumento,
+                    numeroDocumento: valueInputEditingCliente?.numeroDocumento,
+                    nombreCompleto: valueInputEditingCliente?.nombreCompleto,
+                    direccionDomicilio: valueInputEditingCliente?.direccionDomicilio,
+                    numeroTelefono: valueInputEditingCliente?.numeroTelefono,
+                    correoElectronico: valueInputEditingCliente?.correoElectronico
+                  });
+                  setClientes(pre => {
+                    return pre.map(_jardin=>{
+                      if (_jardin.idCliente === valueInputEditingCliente.idCliente){
+                        return valueInputEditingCliente
+                      }
+                      else{
+                        return _jardin
+                      }
+                    })
+                  })
+                  resetEditing()
+                }}
+                okText="Guardar"
               >
-              <Input placeholder="input nombreCompleto" name="nombreCompleto" value={formData.nombreCompleto} onChange={handleChange}  />
-          </Item>
 
-          <Item 
-              label="direccionDomicilio"
-              rules={[{
-                  required:true,
-                  message: "Por favor ingresa el direccionDomicilio "
-              }]}
-              name="direccionDomicilio"
-              >
-              <Input placeholder="input direccionDomicilio" name="direccionDomicilio" value={formData.direccionDomicilio} onChange={handleChange} />
-          </Item>
+  {/* Id: formValues.idCliente,
+                    IdTipoDocumento: formValues.idTipoDocumento,
+                    NombreCompleto: formValues.nombreCompleto,
+                    DireccionDomicilio: formValues.direccionDomicilio,
+                    NumeroTelefono: formValues.numeroTelefono,
+                    CorreoElectronico: formValues.correoElectronico, */}
+                    
+                <Input
+                  value={valueInputEditingCliente?.idCliente}
+                  onChange={(e) => handleInputChange('idCliente', e.target.value)}
+                />
+                <Input
+                  value={valueInputEditingCliente?.idTipoDocumento}
+                  onChange={(e) => handleInputChange('idTipoDocumento', e.target.value)}
+                />
+                <Input
+                  value={valueInputEditingCliente?.numeroDocumento}
+                  onChange={(e) => handleInputChange('numeroDocumento', e.target.value)}
+                />
+                <Input 
+                  value={valueInputEditingCliente?.nombreCompleto} 
+                  onChange={(e) => handleInputChange('nombreCompleto', e.target.value)}          
+                />
+                <Input 
+                  value={valueInputEditingCliente?.direccionDomicilio} 
+                  onChange={(e) => handleInputChange('direccionDomicilio', e.target.value)}          
+                />
+                <Input 
+                  value={valueInputEditingCliente?.numeroTelefono} 
+                  onChange={(e) => handleInputChange('numeroTelefono', e.target.value)}          
+                />
+                <Input
+                  value={valueInputEditingCliente?.correoElectronico} 
+                  onChange={(e) => handleInputChange('correoElectronico', e.target.value)}          
+                />
+            </Modal>
 
-          <Item 
-              label="numeroTelefono"
-              rules={[{
-                  required:true,
-                  message: "Por favor ingresa el numeroTelefono "
-              }]}
-              name="numeroTelefono"
-              >
-              <Input placeholder="input numeroTelefono" name="numeroTelefono" value={formData.numeroTelefono} onChange={handleChange} />
-          </Item>
+            <Modal
 
-          <Item 
-              label="correoElectronico"
-              rules={[{
-                  required:true,
-                  message: "Por favor ingresa el correoElectronico "
-              }]}
-              name="correoElectronico"
-              >
-              <Input placeholder="input correoElectronico" name="correoElectronico" value={formData.correoElectronico} onChange={handleChange} />
-          </Item>
+              title="Guardar Cliente"
+              visible={isSaving}
+              onCancel={() => {
+                resetSaving()
+              }}
 
-      </Form>
+              onOk={() => {
+                guardarCliente(formData)
+              }}
 
-</Modal>
+
+              okText="Guardar"
+                      >    
+                <Form
+                      ref={formRef}
+                      name="Formulario"
+                  >
+
+                      <Item 
+                          label="idTipoDocumento" 
+                          rules={[{
+                              required:true,
+                              message: "Por favor ingresa el tipo documento "
+                          }]}
+                          name = "idTipoDocumento"
+                          >
+                          <Input placeholder="input idTipoDocumento"  name="idTipoDocumento" value={formData.idTipoDocumento} onChange={handleChange}/>
+                      </Item>
+
+                      <Item 
+                          label="numeroDocumento" 
+                          rules={[{
+                              required:true,
+                              message: "Por favor ingresa el tipo documento "
+                          }]}
+                          name = "numeroDocumento"
+                          >
+                          <Input placeholder="input numeroDocumento"  name="numeroDocumento" value={formData.numeroDocumento} onChange={handleChange}/>
+                      </Item>
+
+                      <Item 
+                          label="nombreCompleto"
+                          rules={[{
+                              required:true,
+                              message: "Por favor ingresa la nombreCompleto "
+                        }]}
+
+                          name="nombreCompleto"
+                          >
+                          <Input placeholder="input nombreCompleto" name="nombreCompleto" value={formData.nombreCompleto} onChange={handleChange}  />
+                      </Item>
+
+                      <Item 
+                          label="direccionDomicilio"
+                          rules={[{
+                              required:true,
+                              message: "Por favor ingresa el direccionDomicilio "
+                          }]}
+                          name="direccionDomicilio"
+                          >
+                          <Input placeholder="input direccionDomicilio" name="direccionDomicilio" value={formData.direccionDomicilio} onChange={handleChange} />
+                      </Item>
+
+                      <Item 
+                          label="numeroTelefono"
+                          rules={[{
+                              required:true,
+                              message: "Por favor ingresa el numeroTelefono "
+                          }]}
+                          name="numeroTelefono"
+                          >
+                          <Input placeholder="input numeroTelefono" name="numeroTelefono" value={formData.numeroTelefono} onChange={handleChange} />
+                      </Item>
+
+                      <Item 
+                          label="correoElectronico"
+                          rules={[{
+                              required:true,
+                              message: "Por favor ingresa el correoElectronico "
+                          }]}
+                          name="correoElectronico"
+                          >
+                          <Input placeholder="input correoElectronico" name="correoElectronico" value={formData.correoElectronico} onChange={handleChange} />
+                      </Item>
+
+                </Form>
+
+           </Modal>
 
         </div>
 
 
-      </ContainerPrincipal>
+        </ContainerPrincipal>
       </>
-  );
+    );
   }
 

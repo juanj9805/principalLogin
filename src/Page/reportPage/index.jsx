@@ -1,26 +1,53 @@
+import { useState } from "react";
 import reactImage from "../../assets/header.svg"
-// import { Segmented, Progress } from 'antd';
-// import { Column } from '@ant-design/charts';
+import { Segmented, Progress, Button } from 'antd';
+import { Column } from '@ant-design/charts';
 import styled from 'styled-components';
-// import { useState } from "react";
+import { Line, Pie } from '@ant-design/charts';
+import { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { getViajesThunks } from "../../store/slices/viajes";
 
-/* const StyledColumn = styled(Column)`
+
+const StyledColumn = styled(Column)`
   canvas {
-    height: 300px !important;
-    width: 100% !important;
+    height: 50% !important ;
+    width: 100% !important ;
+    // background-color: white;
     //border: solid green 4px;
-
   }
-`; */
+`
+; 
+
+const StyledLine = styled(Line)`
+  canvas {
+    height: 50% !important ;
+    width: 100% !important ;
+    // background-color: white;
+    // border: solid green 4px;
+  }
+`
+;
+
+const StyledPie = styled(Pie)`
+  canvas {
+    height: 200px ;
+    width: 100% ;
+    // background-color: #fff;
+    // border: solid green 4px;
+    flex-direction: row;
+  }
+`
+;
 
 export const ContainerPrincipal = styled.div`
   width: 100%;
-  height: 100vh;
+  height: 100%;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  background-color: #353535;
+  background-color: white;
 
   .imagen__banner{
     width: 100%;
@@ -34,6 +61,9 @@ export const ContainerPrincipal = styled.div`
     flex-direction: column;
     align-items: flex-start;
     justify-content: center;
+    border-radius: 10px;
+    box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.5);
+    margin: 20px;
 
     h1{
         margin-left: 20px;
@@ -53,147 +83,184 @@ export const ContainerPrincipal = styled.div`
 
 `
 
-const data = [
-  {
-    type: '家具家电',
-    sales: 38,
-  },
-  {
-    type: '粮油副食',
-    sales: 52,
-  },
-  {
-    type: '生鲜水果',
-    sales: 0,
-  },
-  {
-    type: '美容洗护',
-    sales: 145,
-  },
-  {
-    type: '母婴用品',
-    sales: 48,
-  },
-  {
-    type: '进口食品',
-    sales: 38,
-  },
-  {
-    type: '食品饮料',
-    sales: 38,
-  },
-  {
-    type: '家庭清洁',
-    sales: 38,
-  },
-];
-
 //CHARTS  
-const config = {
-  data,
-  xField: 'type',
-  yField: 'sales',
-  label: {
-    position: 'top', // Cambiado de 'middle' a 'top'
-    style: {
-      fill: '#FFFFFF',
-      opacity: 0.6,
-    },
-  },
-  meta: {
-    type: { alias: '类别' },
-    sales: { alias: '销售额' },
-  },
-};
-
-const [percent, setPercent] = useState(0);
-    const increase = () => {
-      setPercent((prevPercent) => {
-        const newPercent = prevPercent + 10;
-        if (newPercent > 100) {
-          return 100;
-        }
-        return newPercent;
-      });
-    };
-    const decline = () => {
-      setPercent((prevPercent) => {
-        const newPercent = prevPercent - 10;
-        if (newPercent < 0) {
-          return 0;
-        }
-        return newPercent;
-      });
-    }; 
 
 export const ReportPage = () => {
+      const dispatch = useDispatch();
+      const {  getViajes = [], isLoading } = useSelector( state => state.viajes );
+      useEffect( ()=> {
+
+        dispatch( getViajesThunks()  ); // Del archivo "Thunks"
+  
+  }, [] )
+      //GRAFICA CHART 
+      const config2 = {
+
+        data: getViajes,
+        title: {
+          visible: true,
+          text: "grafica 1",
+          size: 0,
+          color: 'white',
+        },
+        xField: 'idPaquete',
+        yField: 'precioPaquete',
+        color: '#0C9999',
+        point: {
+          visible: true,
+          size: 5,
+          shape: 'diamond',
+          style: {
+            fill: '#0C9999',
+            stroke: '#0C9999',
+            lineWidth: 3,
+          },
+        },
+      };
+
+      // const config = {
+      //   data: getViajes,
+      //   xField: 'nombrePaquete',
+      //   yField: 'precioPaquete',
+      //   label: {
+      //     position: 'top', // Cambiado de 'middle' a 'top'
+      //     style: {
+      //       fill: '#0C9999',
+      //       opacity: 0.6,
+      //       color:"white",
+      //     },
+      //   },
+      //   meta: {
+      //     type: { alias: 'Paquete' },
+      //     sales: { alias: 'Precio' },
+      //   },
+      // };
+
+      const config = {
+        data: getViajes,
+        xField: 'fechaSalida',
+        yField: 'fechaRegreso',
+        color: 'white', // Cambia este color según tus necesidades
+        label: {
+          position: 'top',
+          style: {
+            fill: 'white',
+
+            opacity: 0.6,
+            color: 'white',
+          },
+        },
+        meta: {
+          type: { alias: 'Paquete' },
+          sales: { alias: 'Precio' },
+        },
+      };
+
+      const configPie = {
+        appendPadding: 10,
+        data: getViajes,
+        angleField: 'precioPaquete',
+        colorField: 'nombrePaquete',
+        radius: 0.9,
+        label: {
+          type: 'inner',
+          offset: '-30%',
+          content: ({ percent }) => `${(percent * 100).toFixed(0)}%`,
+          style: {
+            fontSize: 14,
+            textAlign: 'center',
+          },
+        },
+        interAcciones: [
+          { type: 'element-selected' },
+          { type: 'element-active' },
+        ],
+      };
+      
+      
+      
+
     return (
+
       <>
 
         <ContainerPrincipal>
 
         <div className="imagen__banner" style={{ 
-          background: `url(${reactImage})`,
-          backgroundRepeat: "no-repeat",
-          backgroundSize: "cover", 
-          backgroundPosition: "center"
-          
-          }}>
-              <h1>juan</h1>
-              <br />
-              <br />
-              <br />
-              <h4>Nos encanta verte nuevamente.</h4>
-          </div>
-          <div className="cuerpo__container">
+             background: `linear-gradient(to right, rgba(12, 153, 153, 0.6), rgba(12, 153, 153, 0)) 0%, url(${reactImage})`,
+             backgroundRepeat: "no-repeat",
+             backgroundSize: "cover",  // Ajusta esta propiedad para cubrir toda la imagen
+             backgroundPosition: "center",
+             height: "15vh"
+         }}>
 
-          </div>
+          <h1>juan</h1>
+          <br />
+          <h4>Nos encanta verte nuevamente.</h4>
+        </div>
 
-      {/*   <StyledColumn
-            {...config}
-            onReady={(plot) => {
-              plot.on('plot:click', (evt) => {
-                const { x, y } = evt;
-                const { xField } = plot.options;
-                const tooltipData = plot.chart.getTooltipItems({ x, y });
-                console.log(tooltipData);
-              });
+          <div className="cuerpo__container"
+               style={{
+                display:"flex",
+                flexDirection:"row",
+                width:"100%",
+                // justifyContent:"center",
+                backgroundColor:"#fff"
+              }}
+          >
+
+            <div
+             style={{
+              display:"flex",
+              flexDirection:"column",
+              flexWrap:"nowrap",
+              alignItems:"flexStart",
+              width:"100%",
+              height:"100%",
+              justifyContent:"flexStart",
+              
+              // backgroundColor:"#fff"
             }}
-          /> */}
+            >
+              <div
+                   style={{
+                    border:"solid 1px grey",
+                    margin:"40px 0px"
+                  }}
+              >
+              <StyledColumn {...config}/>
+              <StyledLine {...config2} />
+              </div>
 
-     {/*      <div style={{ 
-                border: '3px solid green', 
-                display: 'flex',
-                flexDirection:'column',
-                justifyContent: 'space-around',
-                alignItems:'center',
-                // height:'40vh',
-                width:"300px",
-              }}>
+            </div>
 
-                  <div
-                    style={{
-                      marginBottom: 10,
-                      display: 'flex',
-                      flexDirection:'column',
-                      justifyContent: 'space-around',
-                      alignItems:'center',
-                      border: '3px solid green', 
-                    }}
-                  >
-                    <Progress percent={percent} />
-                    <Progress type="circle" percent={percent} />
-                  </div>
-                  <Button.Group>
-                    <Button onClick={decline} icon={<MinusOutlined />} />
-                    <Button onClick={increase} icon={<PlusOutlined />} />
-                  </Button.Group>
+            <div
+             style={{
+              display:"flex",
+              alignItems:"center",
+              // flexDirection:"column",
+              width:"100%",
+              height:"100%",
+              margin:"40px 20px 0px 30px",
+              justifyContent:"center",
+              // border:"solid 1px grey",
+              boxShadow: "5px 5px 10px rgba(0, 0, 0, 0.5)"
+              // border:"solid 3px red"
+              // justifyContent:"center",
+              // backgroundColor:"#fff"
+            }}
+            > 
+              <StyledPie {...configPie} />
+            </div>
 
-          </div> */}
+          </div>
+       
+
+
         </ContainerPrincipal>
       </>
   );
-  }
+}
   
   
   

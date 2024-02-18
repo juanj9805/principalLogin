@@ -2,7 +2,7 @@ import styled from "styled-components";
 
 const ContainerPrincipal = styled.div`
   width: 100%;
-  height: 100vh;
+  height: 100%;
   border: 4px dotted blue;
   display: flex;
   flex-direction: column;
@@ -22,6 +22,8 @@ const ContainerPrincipal = styled.div`
     flex-direction: column;
     align-items: flex-start;
     justify-content: center;
+    border-radius: 10px;
+    box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.5);
 
     h1 {
       margin-left: 20px;
