@@ -11,17 +11,23 @@ import { getViajesThunks } from "../../store/slices/viajes";
 
 const StyledColumn = styled(Column)`
   canvas {
-    height: 50% !important ;
+    margin: auto !important;
+    height: 100% !important ;
     width: 100% !important ;
+    display: flex;
+
     // background-color: white;
-    //border: solid green 4px;
+    // border: solid green 4px;
   }
 `
 ; 
 
 const StyledLine = styled(Line)`
   canvas {
-    height: 50% !important ;
+    margin: auto !important;
+    display: flex;
+
+    height: 100% !important ;
     width: 100% !important ;
     // background-color: white;
     // border: solid green 4px;
@@ -208,38 +214,48 @@ export const ReportPage = () => {
                 backgroundColor:"#fff"
               }}
           >
-
-            <div
-             style={{
-              display:"flex",
-              flexDirection:"column",
-              flexWrap:"nowrap",
-              alignItems:"flexStart",
-              width:"100%",
-              height:"100%",
-              justifyContent:"flexStart",
-              
-              // backgroundColor:"#fff"
-            }}
-            >
-              <div
-                   style={{
-                    border:"solid 1px grey",
-                    margin:"40px 0px"
+          <div style={{
+            display:"flex", 
+            flexDirection:"column",
+            justifyContent:"center",
+            alignItems:"center",
+            // border: "solid red 3px",
+            width:"50%",
+            }} >
+            
+                  <div
+                  style={{
+                    display:"flex",
+                    justifyContent:"center !important",
+                    alignItems:"center",
+                    // width:"50%",
+                    // border: "solid blue 3px",
                   }}
-              >
-              <StyledColumn {...config}/>
-              <StyledLine {...config2} />
-              </div>
+                  >
+                      <StyledColumn {...config}/>
+              
+                    </div>
+                  <div
+                  style={{
+                    display:"flex",
+                    justifyContent:"center !important",
+                    alignItems:"center",
+                    // width:"50%",
+                    // border: "solid blue 3px",
+                  }}
+                  >
+                    
+                      <StyledLine {...config2} />
+                    </div>
+          </div>
 
-            </div>
 
             <div
              style={{
               display:"flex",
               alignItems:"center",
               // flexDirection:"column",
-              width:"100%",
+              width:"50%",
               height:"100%",
               margin:"40px 20px 0px 30px",
               justifyContent:"center",

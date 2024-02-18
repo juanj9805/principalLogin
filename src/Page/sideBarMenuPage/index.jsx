@@ -29,7 +29,7 @@ const SideBarMenuPage = () => {
 
   
 
-    const [darkTheme, setDarkTheme] = useState(true);
+    const [darkTheme, setDarkTheme] = useState(false);
 
     const [collapsed, setCollapsed] = useState(false);
   
