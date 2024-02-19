@@ -7,8 +7,13 @@ import logoProfe from '../../../assets/profeLogo.svg'
 
 export const Logo = () => {
   return (
-    <div className={styles.logo}>
-      <img src={logoProfe} alt="" />
+    <div 
+    className={styles.logo}>
+      <img 
+      style={{
+        width:"100%"
+      }}
+      src={logoProfe} alt="" />
     </div>
   );
 };

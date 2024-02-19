@@ -370,271 +370,488 @@ export const Login = (  ) => {
     return (
 
 
-    <>   
+        <>  
 
-        <div className={styles.container__padre} >                          
-{/*             <div className={styles.container} >
+  
 
-                {
-                    currentTheme === 'light'
-                    ?  <p className={styles.iniciar__sesion} > Iniciar sesion  </p> 
-                    :   <p className={styles.iniciar__sesion__dark} > Iniciar sesion </p> 
-                }
-               
-            </div>  */}
-
-            <div className={styles.sub_container} >
-
-                <img src={LogoProfe}>
-                
-                </img>
-                         
-                <ConfigProvider 
-                    className={styles.container}
-                    theme={{
-                    token: currentTheme==='light' ? lightTheme : darkTheme ,
-                    }} >
-
-
-             
-
-                
-                                    <Form
-                                     style={{
-                                        // border: "solid red 3px",  
-                                        width: "66% "    
-                                    }}
-                                        {...formItemLayout}
-                                        ref={formRef}
-                                        name="Formulario"
-                                        initialValues={{
-                                            recordar:true
-                                        }}
-                                        onFinish={formSuccess}
-                                        // inFinishFailed={formFailed}
-                                        // onFinish={} 
-                                    >
-                                        
-                                        
-            
-                                        
-                                        <Item 
-                                            // label="Correo" 
-                                            // name='correo'
-                                            rules={[{
-                                                required:true,
-                                                message: "Por favor ingresa tu correo "
-                                            }]}
-                                            >
-                                                <Input 
-                                                placeholder='Usuario'
-                                                name='correo'
-                                                onChange={handleChange}
-                                                />
-
-                                        </Item>
-
-                                        <Item 
-                                            // label="Contraseña"
-                                            //name="password"
-                                            rules={[{
-                                                required: true,
-                                                message: "Por favor Ingresa tu Contraseña"
-                                            }]} 
-                                            >
-                                                <Password
-
-                                                placeholder='Contraseña'
-                                                name='password'
-                                                onChange={handleChange}
-                                                />
-
-                                        </Item>
-
-
-                           {/*                  <Item onClick={ () =>showModalRegistro() }
-                                                label="Quiere registrarse?" >
-                                             </Item>      */}
-                                        
-
-
-                                        <Item 
-                                            style={{textAlign: 'center'}}
-                                        >
-                                        
-                                        <ConfigProvider
-                                          theme={{
-                                            token:{
-                                              colorPrimary: "#ff8a00",
-                                            //   background: linear-gradient(to right, #ff8a00, #e52e71);
-                                              padding: "200px"
-                                            },
-                                          }}
-                                        >
-
-                                            <Button type='primary' htmlType='submit' onClick={()=>iniciarSesion()} 
-                                            style={{
-                                                background: "linear-gradient(to right, #00A1B5, #00CEE8)"
-                                            }}
-                                            >Iniciar Sesión</Button>
-                                        </ConfigProvider>
-                                            {/* <h1> mira el counter:
-                                            {   counterJaime}
-
-                                            </h1>   */}
-                                            {/* <Button htmlType='button' onClick={borrarCampos}>Borrar Campos</Button> */}
-                                        </Item>
-
-
-
-                                    </Form>
-                                            {/* <Button onClick={ () => dispatch( increment() )} >Counter</Button>
-
-                                            <Button onClick={ () => dispatch( changeAuthorized() )} >Autorized</Button> */}
-                                            {/* <Button onClick={ () =>  showModal() } >Show Modal</Button> Este sii nooo! */}
-
-
-               
-
-                </ConfigProvider>
-            </div>
-            <div style={{
-                width:"100%",
-                // border: "solid red 3px",
-                // marginTop:"100px"
-                position:"absolute",
-                bottom:"0px"
-            }}>
-
-            <img 
-            style={{
-                width:"100%"
-            }}
-            src={FooterProfe} alt="" />       
-            </div>
-        </div> 
-        <Modal title="Su registro ha sido exitoso!" open={isModalOpen} onOk={handleOk} onCancel={handleCancel}>
-
-
-        <a href="/">
-
-
-        </a>
-      </Modal>       
-
-
-    {/*   <Modal title="Reistro!" open={isModalOpenRegistro} onOk={handleOkRegistro} onCancel={handleCancelRegistro}>
-            <Form
-                {...formItemLayout}
-                ref={formRefRegistro}
-                name="FormularioRegistro"
-                onFinish={guardarUsuario}
-      
-                                            
-            >
-            
-                <Item 
-                    label="idTipoDocumento"
-                    rules={[{
-                        required:true,
-                        message: "Por favor ingresa el idTipoDocumento "
-                    },
-                    {
-                        pattern: /^[1-9]\d*$/, 
-                        message: "Ingresa solo números enteros positivos en el idTipoDocumento"
-                    }
-                    ]}
-                    name="idTipoDocumento"
-                    >
-                    <Input placeholder="input idTipoDocumento" name="idTipoDocumento" value={formDataRegistro.idTipoDocumento} onChange={handleChangeRegistro}  />
-                </Item>
-
-                <Item 
-                    label="numeroDocumento"
-                    rules={[{
-                        required:true,
-                        message: "Por favor ingresa la numeroDocumento "
-                    },
-                    {
-                        pattern: /^[1-9]\d*$/, 
-                        message: "Ingresa solo números enteros positivos en el numeroDocumento"
-                    }
-                    ]}
-                    name="numeroDocumento"
-                    >
-                    <Input placeholder="input numeroDocumento" name="numeroDocumento" value={formDataRegistro.numeroDocumento} onChange={handleChangeRegistro}  />
-                </Item>
-
-                <Item 
-                    label="nombres" 
-                    rules={[{
-                        required:true,
-                        message: "Por favor ingresa los nombres "
-                    }]}
-                    name = "nombres"
-                    >
-                    <Input placeholder="input nombres"  name="nombres" value={formDataRegistro.nombres} onChange={handleChangeRegistro}/>
-                </Item>
-
-                
-                <Item 
-                    label="apellidos" 
-                    rules={[{
-                        required:true,
-                        message: "Por favor ingresa los apellidos "
-                    }]}
-                    name = "apellidos"
-                    >
-                    <Input placeholder="input apellidos"  name="apellidos" value={formDataRegistro.apellidos} onChange={handleChangeRegistro}/>
-                </Item>
-
-                <Item 
-                    label="correo" 
-                    rules={[{
-                        required:true,
-                        message: "Por favor ingresa los correo "
-                    }]}
-                    name = "correo"
-                    >
-                    <Input placeholder="input correo"  name="correo" value={formDataRegistro.correo} onChange={handleChangeRegistro}/>
-                </Item>
-
-                <Item 
-                    label="Contraseña"
-
-                    rules={[{
-                        required: true,
-                        message: "Por favor Ingresa tu Contraseña"
-                    }]} 
-                    name="contrasena"
-                    >
-                        <Password
-
-                        name='contrasena'
-                        onChange={handleChangeRegistro}
-                        />
-
-                </Item>
-
-                <Item 
-                    style={{textAlign: 'center'}}
-                >
-                    <Button  type="primary" htmlType='submit'   >Submit Registro</Button>
-
-                </Item>
-
-           
-
-            
-            
-            
-            </Form>
-      </Modal> */}
-
-      <Modal title="El usuario se ha agregado correctamente!" open={isModalOpenRegistroSucces} onOk={handleOkRegistroSucces} onCancel={handleCancelRegistroSucces}  >
-      
-      </Modal>  
-    </>
+                <div className={styles.container__padre} >                          
+        
+        {/*             <div className={styles.container} >
+        
+          
+        
+                        {
+        
+                            currentTheme === 'light'
+        
+                            ?  <p className={styles.iniciar__sesion} > Iniciar sesion  </p>
+        
+                            :   <p className={styles.iniciar__sesion__dark} > Iniciar sesion </p>
+        
+                        }
+        
+                    </div>  */}
+        
+          
+        
+                    <div className={styles.sub_container} >
+        
+          
+        
+                        <img src={LogoProfe}>
+        
+                        </img>
+        
+                        <ConfigProvider
+        
+                            className={styles.container}
+        
+                            theme={{
+        
+                            token: currentTheme==='light' ? lightTheme : darkTheme ,
+        
+                            }} >
+        
+          
+          
+        
+          
+        
+                                            <Form
+        
+                                             style={{
+        
+                                                // border: "solid red 3px",  
+        
+                                                width: "66% "    
+        
+                                            }}
+        
+                                                {...formItemLayout}
+        
+                                                ref={formRef}
+        
+                                                name="Formulario"
+        
+                                                initialValues={{
+        
+                                                    recordar:true
+        
+                                                }}
+        
+                                                onFinish={formSuccess}
+        
+                                                // inFinishFailed={formFailed}
+        
+                                                // onFinish={}
+        
+                                            >
+        
+                                                <ConfigProvider
+        
+                                                theme={{
+        
+                                                token:{
+        
+                                                    colorPrimary: "0C9999"
+        
+                                                },
+        
+                                                }}>
+        
+                 <Item
+        
+                                                    // label="Correo"
+        
+                                                    // name='correo'
+        
+                                                    rules={[{
+        
+                                                        required:true,
+        
+                                                        message: "Por favor ingresa tu correo "
+        
+                                                    }]}
+        
+                                                    >
+        
+                                                        <Input
+        
+                                                        placeholder='Usuario'
+        
+                                                        name='correo'
+        
+                                                        onChange={handleChange}
+        
+                                                        />
+        
+          
+        
+                                                </Item>
+        
+          
+        
+                                                <Item
+        
+                                                    // label="Contraseña"
+        
+                                                    //name="password"
+        
+                                                    rules={[{
+        
+                                                        required: true,
+        
+                                                        message: "Por favor Ingresa tu Contraseña"
+        
+                                                    }]}
+        
+                                                    >
+        
+                                                        <Password
+        
+          
+        
+                                                        placeholder='Contraseña'
+        
+                                                        name='password'
+        
+                                                        onChange={handleChange}
+        
+                                                        />
+        
+          
+        
+                                                </Item>
+        
+                                                </ConfigProvider>
+        
+          
+        
+                                                <Item
+        
+                                                    style={{textAlign: 'center'}}
+        
+                                                >
+        
+                                                <ConfigProvider
+        
+                                                  theme={{
+        
+                                                    token:{
+        
+                                                      colorPrimary: "#0C9999",
+        
+                                                    //   background: linear-gradient(to right, #ff8a00, #e52e71);
+        
+                                                      padding: "200px"
+        
+                                                    },
+        
+                                                  }}
+        
+                                                >
+        
+          
+        
+                                                    <Button type='primary' htmlType='submit' onClick={()=>iniciarSesion()}
+        
+                                                    style={{
+        
+                                                        background: "linear-gradient(to right, #0C9999, #00CEE8)"
+        
+                                                    }}
+        
+                                                    >Iniciar Sesión</Button>
+        
+                                                </ConfigProvider>
+        
+                                                    {/* <h1> mira el counter:
+        
+                                                    {   counterJaime}
+        
+          
+        
+                                                    </h1>   */}
+        
+                                                    {/* <Button htmlType='button' onClick={borrarCampos}>Borrar Campos</Button> */}
+        
+                                                </Item>
+        
+          
+          
+          
+        
+                                            </Form>
+        
+                                                    {/* <Button onClick={ () => dispatch( increment() )} >Counter</Button>
+        
+          
+        
+                                                    <Button onClick={ () => dispatch( changeAuthorized() )} >Autorized</Button> */}
+        
+                                                    {/* <Button onClick={ () =>  showModal() } >Show Modal</Button> Este sii nooo! */}
+        
+          
+          
+        
+          
+        
+                        </ConfigProvider>
+        
+                    </div>
+        
+                    <div style={{
+        
+                        width:"100%",
+        
+                        // border: "solid red 3px",
+        
+                        // marginTop:"100px"
+        
+                        position:"absolute",
+        
+                        bottom:"0px"
+        
+                    }}>
+        
+          
+        
+                    <img
+        
+                    style={{
+        
+                        width:"100%"
+        
+                    }}
+        
+                    src={FooterProfe} alt="" />      
+        
+                    </div>
+        
+                </div>
+        
+                <Modal title="Su registro ha sido exitoso!" open={isModalOpen} onOk={handleOk} onCancel={handleCancel}>
+        
+          
+          
+        
+                <a href="/">
+        
+          
+          
+        
+                </a>
+        
+              </Modal>      
+        
+          
+          
+        
+            {/*   <Modal title="Reistro!" open={isModalOpenRegistro} onOk={handleOkRegistro} onCancel={handleCancelRegistro}>
+        
+                    <Form
+        
+                        {...formItemLayout}
+        
+                        ref={formRefRegistro}
+        
+                        name="FormularioRegistro"
+        
+                        onFinish={guardarUsuario}
+        
+                    >
+        
+                        <Item
+        
+                            label="idTipoDocumento"
+        
+                            rules={[{
+        
+                                required:true,
+        
+                                message: "Por favor ingresa el idTipoDocumento "
+        
+                            },
+        
+                            {
+        
+                                pattern: /^[1-9]\d*$/,
+        
+                                message: "Ingresa solo números enteros positivos en el idTipoDocumento"
+        
+                            }
+        
+                            ]}
+        
+                            name="idTipoDocumento"
+        
+                            >
+        
+                            <Input placeholder="input idTipoDocumento" name="idTipoDocumento" value={formDataRegistro.idTipoDocumento} onChange={handleChangeRegistro}  />
+        
+                        </Item>
+        
+          
+        
+                        <Item
+        
+                            label="numeroDocumento"
+        
+                            rules={[{
+        
+                                required:true,
+        
+                                message: "Por favor ingresa la numeroDocumento "
+        
+                            },
+        
+                            {
+        
+                                pattern: /^[1-9]\d*$/,
+        
+                                message: "Ingresa solo números enteros positivos en el numeroDocumento"
+        
+                            }
+        
+                            ]}
+        
+                            name="numeroDocumento"
+        
+                            >
+        
+                            <Input placeholder="input numeroDocumento" name="numeroDocumento" value={formDataRegistro.numeroDocumento} onChange={handleChangeRegistro}  />
+        
+                        </Item>
+        
+          
+        
+                        <Item
+        
+                            label="nombres"
+        
+                            rules={[{
+        
+                                required:true,
+        
+                                message: "Por favor ingresa los nombres "
+        
+                            }]}
+        
+                            name = "nombres"
+        
+                            >
+        
+                            <Input placeholder="input nombres"  name="nombres" value={formDataRegistro.nombres} onChange={handleChangeRegistro}/>
+        
+                        </Item>
+        
+          
+        
+                        <Item
+        
+                            label="apellidos"
+        
+                            rules={[{
+        
+                                required:true,
+        
+                                message: "Por favor ingresa los apellidos "
+        
+                            }]}
+        
+                            name = "apellidos"
+        
+                            >
+        
+                            <Input placeholder="input apellidos"  name="apellidos" value={formDataRegistro.apellidos} onChange={handleChangeRegistro}/>
+        
+                        </Item>
+        
+          
+        
+                        <Item
+        
+                            label="correo"
+        
+                            rules={[{
+        
+                                required:true,
+        
+                                message: "Por favor ingresa los correo "
+        
+                            }]}
+        
+                            name = "correo"
+        
+                            >
+        
+                            <Input placeholder="input correo"  name="correo" value={formDataRegistro.correo} onChange={handleChangeRegistro}/>
+        
+                        </Item>
+        
+          
+        
+                        <Item
+        
+                            label="Contraseña"
+        
+          
+        
+                            rules={[{
+        
+                                required: true,
+        
+                                message: "Por favor Ingresa tu Contraseña"
+        
+                            }]}
+        
+                            name="contrasena"
+        
+                            >
+        
+                                <Password
+        
+          
+        
+                                name='contrasena'
+        
+                                onChange={handleChangeRegistro}
+        
+                                />
+        
+          
+        
+                        </Item>
+        
+          
+        
+                        <Item
+        
+                            style={{textAlign: 'center'}}
+        
+                        >
+        
+                            <Button  type="primary" htmlType='submit'   >Submit Registro</Button>
+        
+          
+        
+                        </Item>
+        
+          
+        
+          
+        
+                    </Form>
+        
+              </Modal> */}
+        
+          
+        
+              <Modal title="El usuario se ha agregado correctamente!" open={isModalOpenRegistroSucces} onOk={handleOkRegistroSucces} onCancel={handleCancelRegistroSucces}  >
+        
+              </Modal>  
+        
+            </>
     );
 }
 

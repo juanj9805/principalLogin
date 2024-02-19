@@ -188,93 +188,183 @@ export const ReportPage = () => {
 
     return (
 
-      <>
+       <>
 
-        <ContainerPrincipal>
+  
 
-        <div className="imagen__banner" style={{ 
-             background: `linear-gradient(to right, rgba(12, 153, 153, 0.6), rgba(12, 153, 153, 0)) 0%, url(${reactImage})`,
-             backgroundRepeat: "no-repeat",
-             backgroundSize: "cover",  // Ajusta esta propiedad para cubrir toda la imagen
-             backgroundPosition: "center",
-             height: "15vh"
-         }}>
-
-          <h1>juan</h1>
-          <br />
-          <h4>Nos encanta verte nuevamente.</h4>
-        </div>
-
-          <div className="cuerpo__container"
-               style={{
-                display:"flex",
-                flexDirection:"row",
-                width:"100%",
-                // justifyContent:"center",
-                backgroundColor:"#fff"
-              }}
-          >
-          <div style={{
-            display:"flex", 
-            flexDirection:"column",
-            justifyContent:"center",
-            alignItems:"center",
-            // border: "solid red 3px",
-            width:"50%",
-            }} >
-            
-                  <div
-                  style={{
-                    display:"flex",
-                    justifyContent:"center !important",
-                    alignItems:"center",
-                    // width:"50%",
-                    // border: "solid blue 3px",
-                  }}
-                  >
-                      <StyledColumn {...config}/>
-              
-                    </div>
-                  <div
-                  style={{
-                    display:"flex",
-                    justifyContent:"center !important",
-                    alignItems:"center",
-                    // width:"50%",
-                    // border: "solid blue 3px",
-                  }}
-                  >
-                    
-                      <StyledLine {...config2} />
-                    </div>
-          </div>
-
-
-            <div
-             style={{
-              display:"flex",
-              alignItems:"center",
-              // flexDirection:"column",
-              width:"50%",
-              height:"100%",
-              margin:"40px 20px 0px 30px",
-              justifyContent:"center",
-              // border:"solid 1px grey",
-              boxShadow: "5px 5px 10px rgba(0, 0, 0, 0.5)"
-              // border:"solid 3px red"
-              // justifyContent:"center",
-              // backgroundColor:"#fff"
-            }}
-            > 
-              <StyledPie {...configPie} />
-            </div>
-
-          </div>
-       
-
-
-        </ContainerPrincipal>
-      </>
+              <ContainerPrincipal>
+      
+        
+      
+              <div className="imagen__banner" style={{
+      
+                   background: `linear-gradient(to right, rgba(12, 153, 153, 0.6), rgba(12, 153, 153, 0)) 0%, url(${reactImage})`,
+      
+                   backgroundRepeat: "no-repeat",
+      
+                   backgroundSize: "cover",  // Ajusta esta propiedad para cubrir toda la imagen
+      
+                   backgroundPosition: "center",
+      
+                   height: "15vh"
+      
+               }}>
+      
+        
+      
+                <h1>juan</h1>
+      
+                <br />
+      
+                <h4>Nos encanta verte nuevamente.</h4>
+      
+              </div>
+      
+        
+      
+                <div className="cuerpo__container"
+      
+                     style={{
+      
+                      display:"flex",
+      
+                      flexDirection:"row",
+      
+                      width:"100%",
+      
+                      height:"100vh",
+      
+                      // justifyContent:"center",
+      
+                      backgroundColor:"#fff"
+      
+                    }}
+      
+                >
+      
+                <div style={{
+      
+                  display:"flex",
+      
+                  flexDirection:"column",
+      
+                  justifyContent:"center !important",
+      
+                  alignItems:"center",
+      
+                  // border: "solid red 3px",
+      
+                  width:"50%",
+      
+                  }} >
+      
+                        <div
+      
+                        style={{
+      
+                          display:"flex",
+      
+                          justifyContent:"center !important",
+      
+                          alignItems:"center",
+      
+                          boxShadow: "2px 2px 5px rgba(0, 0, 0, 0.5)",
+      
+                          // margin:"15px",
+      
+                          width:"100%"
+      
+                          // width:"50%",
+      
+                          // border: "solid blue 3px",
+      
+                        }}
+      
+                        >
+      
+                            <StyledColumn {...config}/>
+      
+                          </div>
+      
+                        <div
+      
+                        style={{
+      
+                          display:"flex",
+      
+                          justifyContent:"center !important",
+      
+                          alignItems:"center",
+      
+                          boxShadow: "2px 2px 5px rgba(0, 0, 0, 0.5)",
+      
+                          width:"100%"
+      
+        
+      
+                          // width:"50%",
+      
+                          // border: "solid blue 3px",
+      
+                        }}
+      
+                        >
+      
+                            <StyledLine {...config2} />
+      
+                          </div>
+      
+                </div>
+      
+        
+        
+      
+                  <div
+      
+                   style={{
+      
+                    display:"flex",
+      
+                    alignItems:"center",
+      
+                    // flexDirection:"column",
+      
+                    width:"50%",
+      
+                    // height:"87.7vh",
+      
+                    // margin:"40px 20px 0px 30px",
+      
+                    justifyContent:"center",
+      
+                    // border:"solid 1px grey",
+      
+                    boxShadow: "2px 2px 5px rgba(0, 0, 0, 0.5)"
+      
+                    // border:"solid 3px red"
+      
+                    // justifyContent:"center",
+      
+                    // backgroundColor:"#fff"
+      
+                  }}
+      
+                  >
+      
+                    <StyledPie {...configPie} />
+      
+                  </div>
+      
+        
+      
+                </div>
+      
+        
+        
+      
+              </ContainerPrincipal>
+      
+            </>
   );
 }
   

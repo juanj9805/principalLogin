@@ -157,7 +157,7 @@ const colums = [
     render:(record)=>{
       return <>
         <EditOutlined onClick={()=>{onEditViaje(record)}}/>
-        <DeleteOutlined onClick={()=> {onDeleteViaje(record)}}  style={{ color: "red", marginLeft: 12 }} />
+        <DeleteOutlined onClick={()=> {onDeleteViaje(record)}}  style={{marginLeft: 12 }} />
       </>
     }
   }
@@ -288,6 +288,11 @@ const actualizarViaje = async (formValues) => {
                       theme={{
                         // 1. Use dark algorithm
                         algorithm: theme.lightAlgorithm,
+                          token:{
+    
+                                  colorPrimary: "0C9999"
+                          
+                                },
 
                         // 2. Combine dark algorithm and compact algorithm
                         // algorithm: [theme.lightAlgorithm, theme.compactAlgorithm],
@@ -325,7 +330,17 @@ const actualizarViaje = async (formValues) => {
                 }
 
 
-                 
+                    <ConfigProvider
+    
+                    theme={{
+    
+                    token:{
+    
+                        colorPrimary: "0C9999"
+    
+                      },
+    
+                    }}>
 
                     <Modal
                         title="Editar Paquete"
@@ -389,6 +404,7 @@ const actualizarViaje = async (formValues) => {
                         />
                       
                     </Modal>
+                    </ConfigProvider>
 
         </div>
         

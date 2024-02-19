@@ -1,4 +1,4 @@
-import { Menu } from "antd";
+import { ConfigProvider, Menu } from "antd";
 import { UserOutlined, LogoutOutlined, PieChartOutlined, TeamOutlined, DollarOutlined, CompassOutlined, } from "@ant-design/icons";
 import style from '../styles/MenuList.module.css'
 import { Link, useNavigate } from "react-router-dom";
@@ -45,7 +45,7 @@ console.log(stateReduxAut);
     dispatch( changeAuthorized() )
   };
   const themeColors = {
-    background: darkTheme ? '#202020' : '#ffffff', // Fondo verde oscuro para dark, blanco para light
+    background: darkTheme ? '#353535' : '#ffffff', // Fondo verde oscuro para dark, blanco para light
     text: darkTheme ? '#ffffff' : '#333333', // Texto blanco para dark, oscuro para light
     // background: darkTheme ? '#008000' : '#ffffff', // Fondo verde oscuro para dark, blanco para light
     // text: darkTheme ? '#ffffff' : '#333333', // Texto blanco para dark, oscuro para light
@@ -54,6 +54,17 @@ console.log(stateReduxAut);
 
   return (
     
+    <ConfigProvider
+    
+                    theme={{
+    
+                    token:{
+    
+                        colorPrimary: "0C9999"
+    
+                      },
+    
+                    }}>
     <Menu
     style={{
       background: themeColors.background,
@@ -145,6 +156,7 @@ console.log(stateReduxAut);
  */}
       {/* <Menu.Item key="/pagina3" icon={<AreaChartOutlined />}></Menu.Item> */}
     </Menu>
+    </ConfigProvider>
   );
 };
 

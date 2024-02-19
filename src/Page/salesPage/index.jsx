@@ -365,6 +365,7 @@ const handleAgregarClick = async () => {
     console.log(response.data); // Puedes imprimir la respuesta del servidor si lo deseas
     mostrarVentas(); // Actualiza la lista de ventas después de agregar una nueva
     alert("Todo salio bien y se guardo con exito la venta")
+    debugger;
   } catch (error) {
     console.error('Error al guardar la venta:', error);
   } finally {
@@ -376,236 +377,489 @@ const handleAgregarClick = async () => {
 
 
   return (
-    <>
+     <>
 
-        <ContainerPrincipal>
+  
 
-          <div className="imagen__banner" style={{ 
-            background: `linear-gradient(to right, rgba(12, 153, 153, 0.6), rgba(12, 153, 153, 0)) 0%, url(${reactImage})`,
-            backgroundRepeat: "no-repeat",
-            backgroundSize: "cover",  // Ajusta esta propiedad para cubrir toda la imagen
-            backgroundPosition: "center",
-            height: "15vh"
-            
-            }}>
-              <h1>juan</h1>
-              <br />
-              <h4>Nos encanta verte nuevamente.</h4>
-          </div>
-
-          <div
-                style={{ 
-                  width:"100%",
-                  // height:"15vh",
-                  // margin:"20px",
-                  // border: "solid red 3px",
-                  display: "flex",
-                  justifyContent: "space-around",
-                  alignItems: "center",
-                  margin:"20px"
-                }}
-              >
-
-              <div style={{
-                // border: "solid 3px red",
-                width:"30%"
-
-                }}>
-
-                  <Inputstyle
-                    onChange={handleIdClienteChange}
-                    style={{
-                      // height: "56px !important"
-                    }}
-                    placeholder='Id Cliente'
-                      // value={valueInputEditingUsuario?.apellido} 
-                      // onChange={(e) => handleInputChange('apellido', e.target.value)}          
-                  />
-                  <Inputstyle 
-                    onChange={handleIdPaqueteChange}
-                    placeholder='Id Paquete'
-                    value={idPaquete}
-                    // value={valueInputEditingUsuario?.apellido} 
-                    // onChange={(e) => handleInputChange('apellido', e.target.value)}          
-                  />
-              </div>
-
-              <div style={{
-                // border: "solid 3px red"
-                width:"30%"
-                }}
-              >
-
-
-                <StyledSelect
-                placeholder='Estado'
-                  // defaultValue={provinceData[0]}
-                  style={{
-                    width: '100%',
-                  }}
-                  onChange={handleEstadoChange}
-                  options={[
-                    {
-                      label: 'Completado',
-                      value: 'Completado',
-                    },
-                    {
-                      label: 'En Proceso',
-                      value: 'En Proceso',
-                    },
-                    {
-                      label: 'Cancelado',
-                      value: 'Cancelado',
-                    },
-                  ]}
-                />
-
-                <StyleDatePicker
-                placeholder='Fecha'
-                onChange={handleFechaCompraChange}
-                />
-              </div>
-
-              <div 
-                style={{
-                  // border: "solid 3px red",
-                  display:"flex",
-                  width:"30%",
-                  flexDirection:"column",
-                  justifyContent:"center",
-                  alignItems: "center",
-                }}
-                >
-                  <ConfigProvider
-                    theme={{
-                    token:{
-                        colorPrimary: "0C9999"
-                      },
-                    }}>
-                    <ContainerSearch
-                      style={{
-                      width:"100%",
-                          }
-                      }
-                      placeholder="Buscar ..."
-                      allowClear
-                      enterButton="Buscar"
-                      size="large"
-                      onSearch = {(value)=> {
-                        setSearchedText(value)
-                        alert(value)
-                      }}
-                      onChange={(e)=>{
-                        setSearchedText(e.target.value )
-                      }}
-                    /> 
-                  </ConfigProvider> 
-
-                  <ConfigProvider
-                  theme={{
-                  token:{
-                      colorPrimary: "0C9999"
-                    },
-                  }}>
-
-                  <Button 
-                    style={{
-                      width:"100%",
-                      height:"56px",
-                      margin:"5px !important"
-                      
-                    }}
-                    // onClick={ () => { setIsSaving (true)} } 
-                    onClick={handleAgregarClick}
-                    type="primary" 
-                  >
-                    Agregar
-                  </Button>
-
-                  </ConfigProvider>
-              </div>
-   
-          </div>
-
-          <div 
-            className="cuerpo__container"
-            style={{width:"100%",
-            display:"flex",
-            margin: "20px 0px 20px 0px",
-            flexDirection:"column"  }} 
-          >
-
-
-              <ConfigProvider
-                  theme={{
-                    algorithm: theme.lightAlgorithm,
-                  }}
-                >
-                  <Table
-                    columns={colums}
-                    dataSource={venta}
-                    onchangeTable={onchangeTable}
-                  ></Table>
-
-                  <Modal
-                      title="Editar Venta"
-                      visible={isEditing}
-                      onCancel={() => {
-                        resetEditing()
-                      }}
-                      onOk={() => {
-                        // Llama a la función actualizarVenta con los valores del formulario
-                        actualizarVenta({
-
-                          idCliente: valueInputEditingVenta?.idCliente,
-                          idPaquete: valueInputEditingVenta?.idPaquete,
-                          fechaCompra: valueInputEditingVenta?.fechaCompra,
-                          estado: valueInputEditingVenta?.estado,
-                        });
-                        setVenta(pre => {
-                          return pre.map(_jardin=>{
-                            if (_jardin.idVenta === valueInputEditingVenta.idVenta){
-                              return valueInputEditingVenta
-                            }
-                            else{
-                              return _jardin
-                            }
-                          })
-                        })
-                        resetEditing()
-                      }}
-                      okText="Guardar"
-                    >
-
-                      <Input
-                        value={valueInputEditingVenta?.idCliente}
-                        onChange={(e) => handleInputChangeEditingSale('idCliente', e.target.value)}
-                      />
-                      <Input
-                        value={valueInputEditingVenta?.idPaquete}
-                        onChange={(e) => handleInputChangeEditingSale('idPaquete', e.target.value)}
-                      />
-                      <Input 
-                        value={valueInputEditingVenta?.fechaCompra} 
-                        onChange={(e) => handleInputChangeEditingSale('fechaCompra', e.target.value)}          
-                      />
-                      <Input
-                        value={valueInputEditingVenta?.estado}
-                        onChange={(e) => handleInputChangeEditingSale('estado', e.target.value)}
-                      />
-
-                    
-                  </Modal>
-
-              </ConfigProvider>
-
-
-            {/* <div style={{color:'white'}}>{idPaquete}</div> */}
-
-
-          </div>
-
-        </ContainerPrincipal>
-    </>
+            <ContainerPrincipal>
+    
+      
+    
+              <div className="imagen__banner" style={{
+    
+                background: `linear-gradient(to right, rgba(12, 153, 153, 0.6), rgba(12, 153, 153, 0)) 0%, url(${reactImage})`,
+    
+                backgroundRepeat: "no-repeat",
+    
+                backgroundSize: "cover",  // Ajusta esta propiedad para cubrir toda la imagen
+    
+                backgroundPosition: "center",
+    
+                height: "15vh"
+    
+                }}>
+    
+                  <h1>juan</h1>
+    
+                  <br />
+    
+                  <h4>Nos encanta verte nuevamente.</h4>
+    
+              </div>
+    
+      
+      
+    
+              <ConfigProvider
+    
+                    theme={{
+    
+                    token:{
+    
+                        colorPrimary: "0C9999"
+    
+                      },
+    
+                    }}>
+    
+              <div
+    
+                    style={{
+    
+                      width:"100%",
+    
+                      // height:"15vh",
+    
+                      // margin:"20px",
+    
+                      // border: "solid red 3px",
+    
+                      display: "flex",
+    
+                      justifyContent: "space-around",
+    
+                      alignItems: "center",
+    
+                      margin:"20px"
+    
+                    }}
+    
+                  >
+    
+      
+    
+                  <div style={{
+    
+                    // border: "solid 3px red",
+    
+                    width:"30%"
+    
+      
+    
+                    }}>
+    
+      
+    
+                      <Inputstyle
+    
+                        onChange={handleIdClienteChange}
+    
+                        style={{
+    
+                          // height: "56px !important"
+    
+                        }}
+    
+                        placeholder='Id Cliente'
+    
+                          // value={valueInputEditingUsuario?.apellido}
+    
+                          // onChange={(e) => handleInputChange('apellido', e.target.value)}          
+    
+                      />
+    
+                      <Inputstyle
+    
+                        onChange={handleIdPaqueteChange}
+    
+                        placeholder='Id Paquete'
+    
+                        value={idPaquete}
+    
+                        // value={valueInputEditingUsuario?.apellido}
+    
+                        // onChange={(e) => handleInputChange('apellido', e.target.value)}          
+    
+                      />
+    
+                  </div>
+    
+      
+    
+                  <div style={{
+    
+                    // border: "solid 3px red"
+    
+                    width:"30%"
+    
+                    }}
+    
+                  >
+    
+      
+      
+    
+                    <StyledSelect
+    
+                    placeholder='Estado'
+    
+                      // defaultValue={provinceData[0]}
+    
+                      style={{
+    
+                        width: '100%',
+    
+                      }}
+    
+                      onChange={handleEstadoChange}
+    
+                      options={[
+    
+                        {
+    
+                          label: 'Completado',
+    
+                          value: 'Completado',
+    
+                        },
+    
+                        {
+    
+                          label: 'En Proceso',
+    
+                          value: 'En Proceso',
+    
+                        },
+    
+                        {
+    
+                          label: 'Cancelado',
+    
+                          value: 'Cancelado',
+    
+                        },
+    
+                      ]}
+    
+                    />
+    
+      
+    
+                    <StyleDatePicker
+    
+                    placeholder='Fecha'
+    
+                    onChange={handleFechaCompraChange}
+    
+                    />
+    
+                  </div>
+    
+      
+    
+                  <div
+    
+                    style={{
+    
+                      // border: "solid 3px red",
+    
+                      display:"flex",
+    
+                      width:"30%",
+    
+                      flexDirection:"column",
+    
+                      justifyContent:"center",
+    
+                      alignItems: "center",
+    
+                    }}
+    
+                    >
+    
+                      <ConfigProvider
+    
+                        theme={{
+    
+                        token:{
+    
+                            colorPrimary: "0C9999"
+    
+                          },
+    
+                        }}>
+    
+                        <ContainerSearch
+    
+                          style={{
+    
+                          width:"100%",
+    
+                              }
+    
+                          }
+    
+                          placeholder="Buscar ..."
+    
+                          allowClear
+    
+                          enterButton="Buscar"
+    
+                          size="large"
+    
+                          onSearch = {(value)=> {
+    
+                            setSearchedText(value)
+    
+                            alert(value)
+    
+                          }}
+    
+                          onChange={(e)=>{
+    
+                            setSearchedText(e.target.value )
+    
+                          }}
+    
+                        />
+    
+                      </ConfigProvider>
+    
+      
+    
+                      <ConfigProvider
+    
+                      theme={{
+    
+                      token:{
+    
+                          colorPrimary: "0C9999"
+    
+                        },
+    
+                      }}>
+    
+      
+    
+                      <Button
+    
+                        style={{
+    
+                          width:"100%",
+    
+                          height:"56px",
+    
+                          margin:"5px !important"
+    
+                        }}
+    
+                        // onClick={ () => { setIsSaving (true)} }
+    
+                        onClick={handleAgregarClick}
+    
+                        type="primary"
+    
+                      >
+    
+                        Agregar
+    
+                      </Button>
+    
+      
+    
+                      </ConfigProvider>
+    
+                  </div>
+    
+              </div>
+    
+              </ConfigProvider>
+    
+      
+    
+              <div
+    
+                className="cuerpo__container"
+    
+                style={{width:"100%",
+    
+                display:"flex",
+    
+                margin: "20px 0px 20px 0px",
+    
+                flexDirection:"column"  }}
+    
+              >
+    
+      
+      
+    
+                  <ConfigProvider
+    
+                      theme={{
+    
+                        algorithm: theme.lightAlgorithm,
+    
+                        token:{
+    
+                          colorPrimary: "0C9999"
+    
+                        },
+    
+                      }}
+    
+                    >
+    
+                      <Table
+    
+                        columns={colums}
+    
+                        dataSource={venta}
+    
+                        onchangeTable={onchangeTable}
+    
+                      ></Table>
+    
+      
+    
+                      <Modal
+    
+                          title="Editar Venta"
+    
+                          visible={isEditing}
+    
+                          onCancel={() => {
+    
+                            resetEditing()
+    
+                          }}
+    
+                          onOk={() => {
+    
+                            // Llama a la función actualizarVenta con los valores del formulario
+    
+                            actualizarVenta({
+    
+      
+    
+                              idCliente: valueInputEditingVenta?.idCliente,
+    
+                              idPaquete: valueInputEditingVenta?.idPaquete,
+    
+                              fechaCompra: valueInputEditingVenta?.fechaCompra,
+    
+                              estado: valueInputEditingVenta?.estado,
+    
+                            });
+    
+                            setVenta(pre => {
+    
+                              return pre.map(_jardin=>{
+    
+                                if (_jardin.idVenta === valueInputEditingVenta.idVenta){
+    
+                                  return valueInputEditingVenta
+    
+                                }
+    
+                                else{
+    
+                                  return _jardin
+    
+                                }
+    
+                              })
+    
+                            })
+    
+                            resetEditing()
+    
+                          }}
+    
+                          okText="Guardar"
+    
+                        >
+    
+    {/*
+    
+                            <ConfigProvider
+    
+                            theme={{
+    
+                            token:{
+    
+                                colorPrimary: "0C9999"
+    
+                              },
+    
+                            }}> */}
+    
+                            <Input
+    
+                              value={valueInputEditingVenta?.idCliente}
+    
+                              onChange={(e) => handleInputChangeEditingSale('idCliente', e.target.value)}
+    
+                            />
+    
+                            <Input
+    
+                              value={valueInputEditingVenta?.idPaquete}
+    
+                              onChange={(e) => handleInputChangeEditingSale('idPaquete', e.target.value)}
+    
+                            />
+    
+                            <Input
+    
+                              value={valueInputEditingVenta?.fechaCompra}
+    
+                              onChange={(e) => handleInputChangeEditingSale('fechaCompra', e.target.value)}          
+    
+                            />
+    
+                            <Input
+    
+                              value={valueInputEditingVenta?.estado}
+    
+                              onChange={(e) => handleInputChangeEditingSale('estado', e.target.value)}
+    
+                            />
+    
+                            {/* </ConfigProvider> */}
+    
+      
+    
+                      </Modal>
+    
+      
+    
+                  </ConfigProvider>
+    
+      
+      
+    
+                {/* <div style={{color:'white'}}>{idPaquete}</div> */}
+    
+      
+      
+    
+              </div>
+    
+      
+    
+            </ContainerPrincipal>
+    
+        </>
   )
 }

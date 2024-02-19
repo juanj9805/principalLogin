@@ -15,21 +15,21 @@ const { Header, Sider } = Layout;
 const SideBarMenuPage = () => {
 
   const darkThemeColors = {
-    background: 'white', // verde oscuro para dark
-    text: '#ffffff', // blanco para el texto en dark
+    background: '#353535', // verde oscuro para dark
+    text: '#fff', // blanco para el texto en dark
     boxShadow: '5px 5px 10px rgba(0, 0, 0, 0.5)' 
   };
   
   const lightThemeColors = {
-    background: '#ffffff', // blanco para light
-    text: '#333333', // color de texto para light
+    background: '#fff', // blanco para light
+    text: '#333', // color de texto para light
     boxShadow: '5px 5px 10px rgba(0, 0, 0, 0.5)' 
 
   };
 
   
 
-    const [darkTheme, setDarkTheme] = useState(false);
+    const [darkTheme, setDarkTheme] = useState(true);
 
     const [collapsed, setCollapsed] = useState(false);
   
@@ -54,9 +54,11 @@ const SideBarMenuPage = () => {
             className={styles.sidebar}
             theme={darkTheme ? "dark" : "light"}
             style={{
-              background: themeColors.background,
+              // backgroundColor:"#353535",
+              background: themeColors.background, 
               color: themeColors.text,
               boxShadow: themeColors.boxShadow,
+              // border:"solid 3px red",
               // height: '100%'
               
             }}
@@ -73,7 +75,9 @@ const SideBarMenuPage = () => {
             background: themeColors.background, 
             color: themeColors.text , 
             height: '100%',
-            backgroundColor:"white !important"
+            backgroundColor:"white !important",
+            // border:"solid 3px red",
+            background: "white"
             }}>
             <Button
               type="text"

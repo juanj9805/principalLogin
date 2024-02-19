@@ -191,7 +191,7 @@ const colums = [
     render:(record)=>{
       return <>
         <EditOutlined onClick={()=>{onEditUsuario(record)}} />
-        <DeleteOutlined onClick={()=> {onDeleteUsuario(record)}} style={{ color: "red", marginLeft: 12 }} />
+        <DeleteOutlined onClick={()=> {onDeleteUsuario(record)}} style={{marginLeft: 12 }} />
       </>
     }
   }
@@ -290,105 +290,211 @@ const actualizarUsuario = async (formValues) => {
 };
 
   return (
-    <>
-  <ContainerPrincipal>
+     <>
 
-<div className="imagen__banner" style={{ 
-        background: `linear-gradient(to right, rgba(12, 153, 153, 0.6), rgba(12, 153, 153, 0)) 0%, url(${reactImage})`,
-        backgroundRepeat: "no-repeat",
-        backgroundSize: "cover",  // Ajusta esta propiedad para cubrir toda la imagen
-        backgroundPosition: "center",
-        height: "15vh"
-  
-   }}>
-      <h1>juan</h1>
-      <br />
-      <h4>Nos encanta verte nuevamente.</h4>
-  </div>
-  
-  <div className="cuerpo__container"
-  style={{width:"100%",
-  display:"flex",
-  margin: "20px 0px 20px 0px",
-  flexDirection:"column"  }} >
-
-<ConfigProvider
-    theme={{
-      // 1. Use dark algorithm
-      algorithm: theme.lightAlgorithm,
-
-      // 2. Combine dark algorithm and compact algorithm
-      // algorithm: [theme.lightAlgorithm, theme.compactAlgorithm],
-    }}
-  >
-    <Table
-      columns={colums}
-      dataSource={usuario}
+      <ContainerPrincipal>
     
-    ></Table>
-</ConfigProvider>
-
-
-<Modal
-    title="Editar Usuario"
-    visible={isEditing}
-    onCancel={() => {
-      resetEditing()
-    }}
-    onOk={() => {
-      // Llama a la función actualizarJardin con los valores del formulario
-      actualizarUsuario({
-        idTipoDocumento: valueInputEditingUsuario?.idTipoDocumento,
-        numeroDocumento: valueInputEditingUsuario?.numeroDocumento,
-        nombre: valueInputEditingUsuario?.nombre,
-        apellido: valueInputEditingUsuario?.apellido,
-        correo: valueInputEditingUsuario?.correo,
-      });
-
-      setUsuario(pre => {
-        return pre.map(_jardin=>{
-          if (_jardin.idJardin === valueInputEditingUsuario.idJardin){
-            return valueInputEditingUsuario
-          }
-          else{
-            return _jardin
-          }
-        })
-      })
-      resetEditing()
-    }}
-    okText="Guardar"
-  >
-
-    <Input
-      value={valueInputEditingUsuario?.idTipoDocumento}
-      onChange={(e) => handleInputChange('idTipoDocumento', e.target.value)}
-    />
-    <Input
-      value={valueInputEditingUsuario?.numeroDocumento}
-      onChange={(e) => handleInputChange('numeroDocumento', e.target.value)}
-    />
-    <Input 
-      value={valueInputEditingUsuario?.nombre} 
-      onChange={(e) => handleInputChange('nombre', e.target.value)}          
-    />
-    <Input 
-      value={valueInputEditingUsuario?.apellido} 
-      onChange={(e) => handleInputChange('apellido', e.target.value)}          
-    />
-    <Input 
-      value={valueInputEditingUsuario?.correo} 
-      onChange={(e) => handleInputChange('correo', e.target.value)}          
-    />
-  
-</Modal>
-
-  </div>
-
-
-
-</ContainerPrincipal>
-    </>
+      
+    
+    <div className="imagen__banner" style={{
+    
+            background: `linear-gradient(to right, rgba(12, 153, 153, 0.6), rgba(12, 153, 153, 0)) 0%, url(${reactImage})`,
+    
+            backgroundRepeat: "no-repeat",
+    
+            backgroundSize: "cover",  // Ajusta esta propiedad para cubrir toda la imagen
+    
+            backgroundPosition: "center",
+    
+            height: "15vh"
+    
+       }}>
+    
+          <h1>juan</h1>
+    
+          <br />
+    
+          <h4>Nos encanta verte nuevamente.</h4>
+    
+      </div>
+    
+      <div className="cuerpo__container"
+    
+      style={{width:"100%",
+    
+      display:"flex",
+    
+      margin: "20px 0px 20px 0px",
+    
+      flexDirection:"column"  }} >
+    
+      
+    
+    <ConfigProvider
+    
+        theme={{
+    
+          token:{
+    
+            colorPrimary: "0C9999"
+    
+          },
+    
+          // 1. Use dark algorithm
+    
+          algorithm: theme.lightAlgorithm,
+    
+      
+    
+          // 2. Combine dark algorithm and compact algorithm
+    
+          // algorithm: [theme.lightAlgorithm, theme.compactAlgorithm],
+    
+        }}
+    
+      >
+    
+        <Table
+    
+          columns={colums}
+    
+          dataSource={usuario}
+    
+        ></Table>
+    
+    </ConfigProvider>
+    
+      
+    
+    <ConfigProvider
+    
+                    theme={{
+    
+                    token:{
+    
+                        colorPrimary: "0C9999"
+    
+                      },
+    
+                    }}>
+    
+    <Modal
+    
+        title="Editar Usuario"
+    
+        visible={isEditing}
+    
+        onCancel={() => {
+    
+          resetEditing()
+    
+        }}
+    
+        onOk={() => {
+    
+          // Llama a la función actualizarJardin con los valores del formulario
+    
+          actualizarUsuario({
+    
+            idTipoDocumento: valueInputEditingUsuario?.idTipoDocumento,
+    
+            numeroDocumento: valueInputEditingUsuario?.numeroDocumento,
+    
+            nombre: valueInputEditingUsuario?.nombre,
+    
+            apellido: valueInputEditingUsuario?.apellido,
+    
+            correo: valueInputEditingUsuario?.correo,
+    
+          });
+    
+      
+    
+          setUsuario(pre => {
+    
+            return pre.map(_jardin=>{
+    
+              if (_jardin.idJardin === valueInputEditingUsuario.idJardin){
+    
+                return valueInputEditingUsuario
+    
+              }
+    
+              else{
+    
+                return _jardin
+    
+              }
+    
+            })
+    
+          })
+    
+          resetEditing()
+    
+        }}
+    
+        okText="Guardar"
+    
+      >
+    
+      
+    
+        <Input
+    
+          value={valueInputEditingUsuario?.idTipoDocumento}
+    
+          onChange={(e) => handleInputChange('idTipoDocumento', e.target.value)}
+    
+        />
+    
+        <Input
+    
+          value={valueInputEditingUsuario?.numeroDocumento}
+    
+          onChange={(e) => handleInputChange('numeroDocumento', e.target.value)}
+    
+        />
+    
+        <Input
+    
+          value={valueInputEditingUsuario?.nombre}
+    
+          onChange={(e) => handleInputChange('nombre', e.target.value)}          
+    
+        />
+    
+        <Input
+    
+          value={valueInputEditingUsuario?.apellido}
+    
+          onChange={(e) => handleInputChange('apellido', e.target.value)}          
+    
+        />
+    
+        <Input
+    
+          value={valueInputEditingUsuario?.correo}
+    
+          onChange={(e) => handleInputChange('correo', e.target.value)}          
+    
+        />
+    
+    </Modal>
+    
+    </ConfigProvider>
+    
+      
+    
+      </div>
+    
+      
+      
+      
+    
+    </ContainerPrincipal>
+    
+        </>
 );
 }
 
