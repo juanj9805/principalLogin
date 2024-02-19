@@ -325,19 +325,19 @@ const [isSaving, setIsSaving] = useState(false);
 
 const handleIdClienteChange = (e) => {
   setIdCliente(e.target.value)
-  alert("id cliente escogido es " + idCliente)
+  // alert("id cliente escogido es " + idCliente)
 };
 const handleIdPaqueteChange = (e) => {
   setIdPaquete(e.target.value)
-  alert("id paquete escogido es " + idPaquetePrueba)
+  // alert("id paquete escogido es " + idPaquetePrueba)
 };
 const handleFechaCompraChange = (date) => {
   setFechaCompra(date)
-  alert(" fecha escogida es " + fechaCompra)
+  // alert(" fecha escogida es " + fechaCompra)
 };
 const handleEstadoChange = (value) => {
   setEstado(value)
-  alert("estado escogido es " + estado)
+  // alert("estado escogido es " + estado)
 };
 
 
@@ -345,7 +345,7 @@ const handleEstadoChange = (value) => {
 const handleAgregarClick = async () => {
   const a = idCliente;
   
-  const b = idPaquete;
+  const b = idPaquetePrueba;
   
   const c = fechaCompra;
   
@@ -357,7 +357,7 @@ const handleAgregarClick = async () => {
 
     const response = await axios.post('https://localhost:7211/api/Sale/GuardarVenta', {
       IdCliente: parseInt(idCliente),
-      IdPaquete: parseInt(idPaquete),
+      IdPaquete: parseInt(idPaquetePrueba),
       FechaCompra: fechaCompra.toISOString(), // Asegúrate de convertir la fecha a un formato adecuado
       Estado: estado,
     });
