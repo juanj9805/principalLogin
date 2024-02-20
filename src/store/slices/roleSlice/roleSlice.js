@@ -9,6 +9,7 @@ export const roleSlice = createSlice({
 
     changeRoleAuthorized: (state) => {
 
+      // state.roleStateRedux = false;
       state.roleStateRedux = !state.roleStateRedux;
     },
   },

@@ -32,7 +32,7 @@ const MenuList = ({ darkTheme }) => {
 
 } , [roleStateRedux])
 
-// debugger;
+debugger;
 console.log(stateReduxAut);
 
 /*redux*/
@@ -44,6 +44,8 @@ console.log(stateReduxAut);
     navigate('/');
     dispatch( changeAuthorized() )
   };
+  debugger;
+  const f= roleStateRedux;
   const themeColors = {
     background: darkTheme ? '#353535' : '#ffffff', // Fondo verde oscuro para dark, blanco para light
     text: darkTheme ? '#ffffff' : '#333333', // Texto blanco para dark, oscuro para light

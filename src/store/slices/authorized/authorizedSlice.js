@@ -9,6 +9,7 @@ export const authorizedSlice = createSlice({
 
     changeAuthorized: (state) => {
 
+      // state.authorizedStateRedux =false;
       state.authorizedStateRedux = !state.authorizedStateRedux;
     },
   },

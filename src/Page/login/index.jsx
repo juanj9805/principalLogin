@@ -136,10 +136,10 @@ export const Login = (  ) => {
                 
                 dispatch( changeRoleAuthorized() )
             }
-            // debugger;
             const aw = roleStateRedux;
             navigate('/');
             dispatch( changeAuthorized() )
+            // debugger;
       
             console.log("Inicio de sesión exitoso");
             // Resto del código para manejar la respuesta

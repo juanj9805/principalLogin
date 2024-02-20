@@ -45,7 +45,9 @@ function App() {
 </h1>
 {/* <Button onClick={ () => dispatch( changeAuthorized() )} >Counter</Button> */}
      <BrowserRouter>
-     <div style={{display: 'flex', flexDirection: 'row'}}>
+     <div style={{display: 'flex', flexDirection: 'row',
+    // border:"blue 3px solid"
+    }}>
       {stateReduxAut && <Layout />}
         {stateReduxAut && <SideBarMenuPage />}
         {/* {!stateReduxAut ? <Login  /> : null} */}
