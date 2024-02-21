@@ -126,11 +126,11 @@ export const Login = (  ) => {
       
           if (response.ok) {
             const usuario = await response.json();
-            console.log("Estamos aqui con los datos de usuario:**************");
-            console.log(usuario);
+            // console.log("Estamos aqui con los datos de usuario:**************");
+            // console.log(usuario);
             const idTipoRole = usuario.idTipoRole;
-            console.log(idTipoRole);
-            console.log(typeof idTipoRole);
+            // console.log(idTipoRole);
+            // console.log(typeof idTipoRole);
             if(idTipoRole === 1){
                 
                 
@@ -148,7 +148,7 @@ export const Login = (  ) => {
           }
         } catch (error) {
           console.error("Error al iniciar sesión", error);
-        }
+        }   
       };
 
 

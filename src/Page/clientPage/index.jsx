@@ -117,6 +117,8 @@ export const ContainerPrincipal = styled.div`
   }
 
 `
+
+//READ
 export const ClientPage = () => {
   const [clientes, setClientes] = useState([])
 
@@ -208,7 +210,7 @@ const colums = [
   
 ]
 
-//Eliminar
+//Delete
 
 const onDeleteClientes = (record) => {
   console.log("Record:", record);
@@ -251,7 +253,7 @@ const eliminarCliente = async (id) => {
   }
 };
 
-//Editar
+//Update
 
 const [isEditing, setIsEditing] = useState(false)
 const [ valueInputEditingCliente, setValueInputEditingCliente ]= useState();
@@ -344,6 +346,8 @@ const handleChange = (e) => {
   }));
 
 };
+
+//Create
 
 const guardarCliente = async (formValues = formData) => {
   try {

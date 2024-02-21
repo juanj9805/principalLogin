@@ -170,8 +170,11 @@ const [ valueInputEditingVenta, setValueInputEditingVenta ] = useState();
 const handleInputChangeEditingSale = (campo, valor) => {
   setValueInputEditingVenta((prevJardin) => ({
     ...prevJardin,
-    [campo]: valor,
+    [campo]: campo === 'estado' ? valor.estadoUpdate : valor,
+    // [campo]: valor,
   }));
+  
+  debugger;
 };
 
 const onEditVenta= (record) => {
@@ -184,7 +187,7 @@ const resetEditing = () => {
   setValueInputEditingVenta(null)
 }
 
-const actualizarVenta = async (formValues) => {
+const actualizarVenta = async (formValues, estado) => {
   debugger;
   try {
     const response = await fetch(`https://localhost:7211/api/Sale/EditarVenta/${valueInputEditingVenta.idVenta}`, {
@@ -196,7 +199,8 @@ const actualizarVenta = async (formValues) => {
         IdCliente: formValues.idCliente,
         IdPaquete: formValues.idPaquete,
         FechaCompra: formValues.fechaCompra,
-        Estado: formValues.estado,
+        // Estado: formValues.estado,
+        Estado: estado,
       })
     });
 
@@ -301,9 +305,10 @@ const colums = [
   //   }
   // }
 ]
-
+// _____________________________________________________________________
     let navigate = useNavigate();
     let {idPaquete} = useParams();
+    // ______________________________________________________________________
 
 // SELECT
 
@@ -316,9 +321,10 @@ const handleProvinceChange = (value) => {
 // Integración Backend
 
 const [idCliente, setIdCliente] = useState('');
-const [idPaquetePrueba, setIdPaquete] = useState('');
-const [fechaCompra, setFechaCompra] = useState(null); // Asegúrate de inicializarlo como null
+const [idPaquetePrueba, setIdPaquetePrueba] = useState('');
+const [fechaCompra, setFechaCompra] = useState('null'); // Asegúrate de inicializarlo como null
 const [estado, setEstado] = useState(''); 
+const [estadoUpdate, setEstadoUpdate] = useState(''); 
 const [isSaving, setIsSaving] = useState(false);
 
 
@@ -328,8 +334,8 @@ const handleIdClienteChange = (e) => {
   // alert("id cliente escogido es " + idCliente)
 };
 const handleIdPaqueteChange = (e) => {
-  setIdPaquete(e.target.value)
-  // alert("id paquete escogido es " + idPaquetePrueba)
+  setIdPaquetePrueba(e.target.value)
+  // alert("id paquete escogido es " + idPaquete)
 };
 const handleFechaCompraChange = (date) => {
   setFechaCompra(date)
@@ -340,18 +346,26 @@ const handleEstadoChange = (value) => {
   // alert("estado escogido es " + estado)
 };
 
+const handleEstadoChangeUpdate = (value) => {
+  setEstadoUpdate(value)
+      // valueInputEditingVenta?.estado=estadoUpdate;
+      // debugger;
 
+  // alert("estado escogido es " + estado)
+};
 
 const handleAgregarClick = async () => {
-  const a = idCliente;
+  // const a = idCliente;
   
-  const b = idPaquetePrueba;
+  // const b = idPaquete;
   
-  const c = fechaCompra;
+  // const c = fechaCompra;
   
-  const d = estado;
+  // const d = estado;
+
+  // const e = idPaquetePrueba;
   
-  debugger;
+  // debugger;
   try {
     setIsSaving(true);
 
@@ -484,7 +498,7 @@ const handleAgregarClick = async () => {
     
                         placeholder='Id Paquete'
     
-                        value={idPaquete}
+    //                     value={idPaquete}
     
                         // value={valueInputEditingUsuario?.apellido}
     
@@ -758,9 +772,11 @@ const handleAgregarClick = async () => {
     
                               fechaCompra: valueInputEditingVenta?.fechaCompra,
     
-                              estado: valueInputEditingVenta?.estado,
+    //                           estado: valueInputEditingVenta?.estado,
+
+    //                           estado: valueInputEditingVenta?.estado,
     
-                            });
+                            },estadoUpdate);
     
                             setVenta(pre => {
     
@@ -828,17 +844,39 @@ const handleAgregarClick = async () => {
     
                             />
     
-                            <Input
+    {/*                         <Input
     
                               value={valueInputEditingVenta?.estado}
     
                               onChange={(e) => handleInputChangeEditingSale('estado', e.target.value)}
     
                             />
-    
+     */}
                             {/* </ConfigProvider> */}
     
-      
+      <StyledSelect
+    
+                    placeholder='Estado'
+    
+                      // defaultValue={provinceData[0]}
+    
+                      style={{
+    
+                        width: '100%',
+    
+                      }}
+    
+                      onChange={handleEstadoChangeUpdate}
+    // value={valueInputEditingVenta?.estado}
+    // value={valueInputEditingVenta?.estado}
+                      // onChange={(e) => handleInputChangeEditingSale('estado', e.target.value)}
+    
+                   options={[
+                    { label: 'Completado', value: 'Completado' },
+                    { label: 'En Proceso', value: 'En Proceso' },
+                    { label: 'Cancelado', value: 'Cancelado' },
+                  ]}
+                    />
     
                       </Modal>
     
