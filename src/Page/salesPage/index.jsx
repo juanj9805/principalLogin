@@ -9,6 +9,7 @@ import { ConfigProvider, theme } from 'antd';
 import reactImage from "../../assets/header.svg"
 import { DatePicker } from 'antd';
 import {EditOutlined, DeleteOutlined } from "@ant-design/icons";
+import Cookies from 'universal-cookie';
 // import dayjs from 'dayjs';
 // import customParseFormat from 'dayjs/plugin/customParseFormat';
 
@@ -153,7 +154,7 @@ export const ContainerPrincipal = styled.div`
 // `;
 
 export const  Salespage = () => {
-
+  const cookies = new Cookies();
   // Buscar
 
 const [searchedText, setSearchedText] = useState("")
@@ -387,7 +388,7 @@ const handleAgregarClick = async () => {
   }
 };
 
-
+const idUsuarioCookie = cookies.get('nombre');
 
 
   return (
@@ -413,11 +414,12 @@ const handleAgregarClick = async () => {
     
                 }}>
     
-                  <h1>juan</h1>
-    
-                  <br />
-    
-                  <h4>Nos encanta verte nuevamente.</h4>
+           <h1>
+      {idUsuarioCookie} 
+      </h1>
+
+      
+                <h4>Nos encanta verte nuevamente.</h4>
     
               </div>
     
@@ -867,6 +869,7 @@ const handleAgregarClick = async () => {
                       }}
     
                       onChange={handleEstadoChangeUpdate}
+    
     // value={valueInputEditingVenta?.estado}
     // value={valueInputEditingVenta?.estado}
                       // onChange={(e) => handleInputChangeEditingSale('estado', e.target.value)}

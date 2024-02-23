@@ -7,6 +7,7 @@ import { Line, Pie } from '@ant-design/charts';
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { getViajesThunks } from "../../store/slices/viajes";
+import Cookies from 'universal-cookie';
 
 
 const StyledColumn = styled(Column)`
@@ -92,6 +93,7 @@ export const ContainerPrincipal = styled.div`
 //CHARTS  
 
 export const ReportPage = () => {
+  const cookies = new Cookies();
       const dispatch = useDispatch();
       const {  getViajes = [], isLoading } = useSelector( state => state.viajes );
       useEffect( ()=> {
@@ -184,7 +186,7 @@ export const ReportPage = () => {
       };
       
       
-      
+      const idUsuarioCookie = cookies.get('nombre');
 
     return (
 
@@ -210,11 +212,10 @@ export const ReportPage = () => {
       
                }}>
       
-        
-      
-                <h1>juan</h1>
-      
-                <br />
+      <h1>
+      {idUsuarioCookie} 
+      </h1>
+
       
                 <h4>Nos encanta verte nuevamente.</h4>
       

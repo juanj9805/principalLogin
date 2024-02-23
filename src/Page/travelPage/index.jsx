@@ -7,6 +7,7 @@ import {EditOutlined, DeleteOutlined} from "@ant-design/icons";
 import Card from "./components/Card";
 import { useDispatch, useSelector } from 'react-redux';
 import { getViajesThunks } from "../../store/slices/viajes";
+import Cookies from 'universal-cookie';
 
 export const ContainerPrincipal = styled.div`
   width: 100%;
@@ -60,6 +61,7 @@ export const TravelPage = () => {
   // let stateReduxOut = false
   //Despachar la accion 
 
+  const cookies = new Cookies();
 
   // const { roleStateRedux } = useSelector( state => state.authorized )
   const [stateReduxAut , setStateReduxAut] = useState(roleStateRedux)
@@ -260,7 +262,7 @@ const actualizarViaje = async (formValues) => {
 };
 
 
-
+const idUsuarioCookie = cookies.get('nombre');
 
 
   return (
@@ -276,9 +278,10 @@ const actualizarViaje = async (formValues) => {
         height: "15vh"
         
         }}>
-            <h1>juan</h1>
-            <br />
-            <h4>Nos encanta verte nuevamente.</h4>
+          <h1>
+      {idUsuarioCookie} 
+      </h1>
+          <h4>Nos encanta verte nuevamente.</h4>
         </div>
 
         <div className="cuerpo__container">

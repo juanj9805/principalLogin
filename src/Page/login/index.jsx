@@ -97,59 +97,98 @@ export const Login = (  ) => {
 
     const cookies = new Cookies();
 
+    const iniciarSesion = async () => {
+        const credentials = {
+            correo: form.correo,
+            contrasena: md5(form.password)
+        };
+    
+        try {
+            const response = await fetch(`https://localhost:7211/api/Usuarios/IniciarSesion`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(credentials),
+            });
+    
+            if (response.ok) {
+                const usuario = await response.json();
+    
+                const idTipoRole = usuario.idTipoRole;
+    
+                if (idTipoRole === 1) {
+                    dispatch(changeRoleAuthorized());
+                }
+    
+                navigate('/');
+                dispatch(changeAuthorized());
+    
+                // Almacena los datos en cookies
+                cookies.set('idUsuario', usuario.idUsuario, { path: '/' });
+                cookies.set('idTipoDocumento', usuario.idTipoDocumento, { path: '/' });
+                cookies.set('nombre', usuario.nombre, { path: '/' });
+                cookies.set('apellido', usuario.apellido, { path: '/' });
+                cookies.set('correo', usuario.correo, { path: '/' });
+                // Puedes agregar más campos según sea necesario
+                debugger;
 
+                 
+                const idUsuarioCookie = cookies.get('nombre');
+                console.log('Id de Usuario:', idUsuarioCookie);
+    
+                console.log("Inicio de sesión exitoso");
+    
+            } else {
+                alert('El usuario o la contraseña no son correctos');
+            }
+        } catch (error) {
+            console.error("Error al iniciar sesión", error);
+        }   
+    };
 
     
-    const iniciarSesion = async () => {
-
-
-  
-        const credentials = {
-        //   correo: "vendedor@gmail.com",
-        //   contrasena: "202cb962ac59075b964b07152d234b70"
-
-        correo: form.correo,
-        contrasena: md5(form.password)
-        };
+    // const iniciarSesion = async () => {  
+    //     const credentials = {
+    //     correo: form.correo,
+    //     contrasena: md5(form.password)
+    //     };
      
-        console.log(credentials)
+    //     console.log(credentials)
 
-        try {
-        //   const response = await fetch(`https://localhost:5001/api/Usuarios/IniciarSesion`, {
-          const response = await fetch(`https://localhost:7211/api/Usuarios/IniciarSesion`, {
-            method: 'POST',
-            headers: {
-              'Content-Type': 'application/json',
-            },
-            body: JSON.stringify(credentials),
-          });
+    //     try {
+    //     //   const response = await fetch(`https://localhost:5001/api/Usuarios/IniciarSesion`, {
+    //       const response = await fetch(`https://localhost:7211/api/Usuarios/IniciarSesion`, {
+    //         method: 'POST',
+    //         headers: {
+    //           'Content-Type': 'application/json',
+    //         },
+    //         body: JSON.stringify(credentials),
+    //       });
       
-          if (response.ok) {
-            const usuario = await response.json();
-            // console.log("Estamos aqui con los datos de usuario:**************");
-            // console.log(usuario);
-            const idTipoRole = usuario.idTipoRole;
-            // console.log(idTipoRole);
-            // console.log(typeof idTipoRole);
-            if(idTipoRole === 1){
+    //       if (response.ok) {
+    //         const usuario = await response.json();
+
+    //         const idTipoRole = usuario.idTipoRole;
+ 
+    //         if(idTipoRole === 1){
                 
                 
-                dispatch( changeRoleAuthorized() )
-            }
-            const aw = roleStateRedux;
-            navigate('/');
-            dispatch( changeAuthorized() )
-            // debugger;
+    //             dispatch( changeRoleAuthorized() )
+    //         }
+    //         const aw = roleStateRedux;
+    //         navigate('/');
+    //         dispatch( changeAuthorized() )      
       
-            console.log("Inicio de sesión exitoso");
-            // Resto del código para manejar la respuesta
-          } else {
-            alert('El usuario o la contraseña no son correctos');
-          }
-        } catch (error) {
-          console.error("Error al iniciar sesión", error);
-        }   
-      };
+    //         console.log("Inicio de sesión exitoso");
+
+    //       } else {
+    //         alert('El usuario o la contraseña no son correctos');
+    //       }
+    //     } catch (error) {
+    //       console.error("Error al iniciar sesión", error);
+    //     }   
+    //   };
 
 
         

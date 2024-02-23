@@ -7,6 +7,9 @@ import {EditOutlined, DeleteOutlined } from "@ant-design/icons";
 import { Modal, Form } from 'antd';
 import { AudioOutlined } from '@ant-design/icons';
 import React, { createRef} from 'react';
+import { useSelector, useDispatch  } from "react-redux";
+import { getUsuariosThunks } from "../../store/slices/usuarios/thunks";
+import Cookies from 'universal-cookie';
 
 
 
@@ -120,6 +123,29 @@ export const ContainerPrincipal = styled.div`
 
 //READ
 export const ClientPage = () => {
+
+  const cookies = new Cookies();
+
+  /************ */
+  const dispatch = useDispatch();
+
+  const {getUsuarios = []} = useSelector  (state=>state.usuarios)
+  // let stateReduxOut = false
+  //Despachar la accion 
+
+  useEffect( ()=> {
+    
+    dispatch( getUsuariosThunks()  ); // Del archivo "Thunks"
+    
+  }, [] )
+
+const {nombre}= getUsuarios
+console.log(nombre);
+  console.log("usuarios con redux")
+  console.log(getUsuarios) 
+  debugger;
+
+  //*********** */
   const [clientes, setClientes] = useState([])
 
   const mostrarclientes = async () => {
@@ -386,6 +412,7 @@ const guardarCliente = async (formValues = formData) => {
   }
 }
 
+const idUsuarioCookie = cookies.get('nombre');
 
 
 
@@ -409,10 +436,10 @@ const guardarCliente = async (formValues = formData) => {
                height: "15vh"
       
               }}>
-      
-                <h1>juan</h1>
-      
-                <br />
+     <h1>
+      {idUsuarioCookie} 
+      </h1>
+
       
                 <h4>Nos encanta verte nuevamente.</h4>
       

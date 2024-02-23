@@ -5,6 +5,7 @@ import axios from "axios";
 import { Input, Modal, Table } from "antd";
 import { EditOutlined, DeleteOutlined} from "@ant-design/icons";
 import { ConfigProvider, theme } from 'antd';
+import Cookies from 'universal-cookie';
 
 
 /* export const ContainerPrincipal = styled.div`
@@ -139,6 +140,7 @@ export const ContainerPrincipal = styled.div`
 
 export const UserPage = () => {
   const [usuario, setUsuario] = useState([])
+  const cookies = new Cookies();
 
   const mostrarUsuarios = async () => {
     try {
@@ -289,6 +291,9 @@ const actualizarUsuario = async (formValues) => {
   }
 };
 
+
+const idUsuarioCookie = cookies.get('nombre');
+
   return (
      <>
 
@@ -309,11 +314,9 @@ const actualizarUsuario = async (formValues) => {
             height: "15vh"
     
        }}>
-    
-          <h1>juan</h1>
-    
-          <br />
-    
+     <h1>
+      {idUsuarioCookie} 
+      </h1>
           <h4>Nos encanta verte nuevamente.</h4>
     
       </div>
