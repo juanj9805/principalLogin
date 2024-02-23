@@ -1,0 +1,39 @@
+name: Desplegar S3
+
+on:
+  push:
+    branches:
+      - master
+      
+permissions:
+  id-token: write
+  contents: read
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Instalar Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '20.10.0'
+      
+      - name: Instalar Dependencias
+        run: npm install
+
+      - name: Construir Aplicacion
+        run: npm run build
+
+      - name: Configurara credenciales de AWS
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          role-to-assume: arn:aws:iam::992382358259:role/DespliegueContinuo
+          role-session-name: samplerolesession
+          aws-region: us-east-1
+
+      - name: Sincronizar
+        run: aws s3 sync dist/ s3://s3-bucketlogin-xycgxyfcnodj
