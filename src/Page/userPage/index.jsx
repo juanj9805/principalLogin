@@ -2,10 +2,11 @@ import styled from "styled-components";
 import reactImage from "../../assets/header.svg"
 import { useEffect, useState } from "react";
 import axios from "axios";
-import { Input, Modal, Table } from "antd";
+import { Input, Modal, Table, Button, Form,  } from "antd";
 import { EditOutlined, DeleteOutlined} from "@ant-design/icons";
 import { ConfigProvider, theme } from 'antd';
 import Cookies from 'universal-cookie';
+import React, { createRef} from 'react';
 
 
 /* export const ContainerPrincipal = styled.div`
@@ -294,10 +295,102 @@ const actualizarUsuario = async (formValues) => {
 
 const idUsuarioCookie = cookies.get('nombre');
 
+//**** agregar Usuario */
+
+const formRef = createRef();
+
+const {Item} = Form;
+
+const [isSaving, setIsSaving] = useState(false)
+
+const [formData, setFormData] = useState({
+  // createdAt: '',
+  // valorSensor: '',
+  // sensorId: '',
+  numeroDocumento:'',
+  nombres:'',
+  apellido:'',
+  correo:'',
+  contrasena:'',
+  idTipoRole:'',
+  idTipoDocumento:'',
+});
+
+const resetSaving = () => {
+  setIsSaving(false);
+  setFormData({
+    // createdAt: '',
+    // valorSensor: '',
+    // sensorId: '',
+    numeroDocumento:'',
+    nombres:'',
+    apellido:'',
+    correo:'',
+    contrasena:'',
+    idTipoRole:'',
+    idTipoDocumento:'',
+  });
+}
+
+const handleChange = (e) => {
+
+  const { name, value } = e.target;
+
+  setFormData((prevData) => ({
+      ...prevData,
+      [name]: value,
+  }));
+
+};
+
+const guardarUsuario = async (formValues = formData) => {
+  try {
+      const response = await fetch("https://localhost:7211/api/Usuarios/GuardarUsuario", {
+          method: "POST",
+          headers: {
+              'Content-Type': 'application/json;charset=utf-8'
+          },
+          body: JSON.stringify({
+
+            // CreatedAt: formValues.createdAt,
+            // ValorSensor: formValues.valorSensor,
+            // SensorId: formValues.sensorId,
+
+            numeroDocumento: formValues.numeroDocumento,
+            nombres: formValues.nombres,
+            apellido: formValues.apellido,
+            correo: formValues.correo,
+            contrasena: formValues.contrasena,
+            idTipoRole: formValues.idTipoRole,
+            idTipoDocumento: formValues.idTipoDocumento,
+
+          })
+      });
+
+      if (response.ok) {
+
+          formRef.current.resetFields(); // Reinicia los campos del formulario
+          alert("el usuario se ha guardado correctamente");
+          setUsuario((pre)=>{
+            return [ ...pre, formData  ]
+          })
+
+          setIsSaving(false)
+
+      } else {
+          alert(response.statusText);
+      }
+  } catch (error) {
+      console.error("Error al guardar el usuario:", error);
+  }
+}
+
   return (
      <>
 
       <ContainerPrincipal>
+
+    <Button onClick={ () => { setIsSaving (true)} } > Agregar nuevo Usuario </Button>
     
       
     
@@ -496,6 +589,122 @@ const idUsuarioCookie = cookies.get('nombre');
       
     
     </ContainerPrincipal>
+
+    <Modal
+          title="Guardar Usuario"
+          visible={isSaving}
+          onCancel={() => {
+            resetSaving()
+          }}
+          onOk={() => {
+            guardarUsuario(formData)
+          }}
+
+
+          okText="Guardar"
+        >
+            <Form
+                  ref={formRef}
+                  name="Formulario"
+              >
+
+                  <Item 
+                      label="numeroDocumento" 
+                      rules={[{
+                          required:true,
+                          message: "Por favor ingresa el numeroDocumento "
+                      },
+                      {
+                          pattern: /^[1-9]\d*$/, 
+                          message: "Ingresa solo números enteros positivos en el numero documento"
+                      }
+                    ]}
+                      name = "numeroDocumento"
+                      >
+                      <Input placeholder="input numeroDocumento"  name="numeroDocumento" value={formData.numeroDocumento} onChange={handleChange}/>
+                  </Item>
+
+                  <Item 
+                      label="nombres"
+                      rules={[
+                        {
+                          required:true,
+                          message: "Por favor ingresa la nombres "
+                      }
+                  ]}
+                      name="nombres"
+                      >
+                      <Input placeholder="input nombres" name="nombres" value={formData.nombres} onChange={handleChange}  />
+                  </Item>
+
+                  <Item 
+                      label="apellido"
+                      rules={[{
+                          required:true,
+                          message: "Por favor ingresa el apellido "
+                      }
+                  ]}
+                      name="apellido"
+                      >
+                      <Input placeholder="input apellido" name="apellido" value={formData.apellido} onChange={handleChange} />
+                  </Item>
+
+
+                  <Item 
+                      label="correo"
+                      rules={[{
+                          required:true,
+                          message: "Por favor ingresa el correo "
+                      }
+                  ]}
+                      name="correo"
+                      >
+                      <Input placeholder="input correo" name="correo" value={formData.correo} onChange={handleChange} />
+                  </Item>
+
+                  <Item 
+                      label="contrasena"
+                      rules={[{
+                          required:true,
+                          message: "Por favor ingresa el contrasena "
+                      }
+                  ]}
+                      name="contrasena"
+                      >
+                      <Input placeholder="input contrasena" name="contrasena" value={formData.contrasena} onChange={handleChange} />
+                  </Item>
+
+
+
+                  <Item 
+                      label="idTipoRole"
+                      rules={[{
+                          required:true,
+                          message: "Por favor ingresa el idTipoRole "
+                      }
+                  ]}
+                      name="idTipoRole"
+                      >
+                      <Input placeholder="input idTipoRole" name="idTipoRole" value={formData.idTipoRole} onChange={handleChange} />
+                  </Item>
+
+
+                  
+                  <Item 
+                      label="idTipoDocumento"
+                      rules={[{
+                          required:true,
+                          message: "Por favor ingresa el idTipoDocumento "
+                      }
+                  ]}
+                      name="idTipoDocumento"
+                      >
+                      <Input placeholder="input idTipoDocumento" name="idTipoDocumento" value={formData.idTipoDocumento} onChange={handleChange} />
+                  </Item>
+
+              </Form>
+
+    </Modal>
     
         </>
 );
